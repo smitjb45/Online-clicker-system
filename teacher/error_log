@@ -1,0 +1,9 @@
+[20-Jan-2016 22:38:12 UTC] PHP Notice:  Undefined index: fName in /home/sprouttech/public_html/version1.1.0/teacher/teacherHome.php on line 171
+[20-Jan-2016 22:38:12 UTC] PHP Notice:  Undefined index: userId in /home/sprouttech/public_html/version1.1.0/teacher/teacherHome.php on line 21
+[20-Jan-2016 22:38:12 UTC] PHP Fatal error:  Uncaught exception 'PDOException' with message 'SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 3' in /home/sprouttech/public_html/version1.1.0/includes/database.inc.php:21
+Stack trace:
+#0 /home/sprouttech/public_html/version1.1.0/includes/database.inc.php(21): PDOStatement->execute()
+#1 /home/sprouttech/public_html/version1.1.0/teacher/teacherHome.php(23): getDataBySQL('SELECT * FROM c...')
+#2 /home/sprouttech/public_html/version1.1.0/teacher/teacherHome.php(191): displayClasses()
+#3 {main}
+  thrown in /home/sprouttech/public_html/version1.1.0/includes/database.inc.php on line 21

@@ -1,0 +1,48 @@
+[20-Jan-2016 22:31:05 UTC] PHP Fatal error:  Uncaught exception 'PDOException' with message 'SQLSTATE[28000] [1045] Access denied for user 'root'@'localhost' (using password: YES)' in /home/sprouttech/public_html/version1.1.0/includes/database.inc.php:10
+Stack trace:
+#0 /home/sprouttech/public_html/version1.1.0/includes/database.inc.php(10): PDO->__construct('mysql:host=loca...', 'root', 'mysql')
+#1 /home/sprouttech/public_html/version1.1.0/loginProcess.php(6): getDatabaseConnection()
+#2 {main}
+  thrown in /home/sprouttech/public_html/version1.1.0/includes/database.inc.php on line 10
+[20-Jan-2016 22:31:08 UTC] PHP Fatal error:  Uncaught exception 'PDOException' with message 'SQLSTATE[28000] [1045] Access denied for user 'root'@'localhost' (using password: YES)' in /home/sprouttech/public_html/version1.1.0/includes/database.inc.php:10
+Stack trace:
+#0 /home/sprouttech/public_html/version1.1.0/includes/database.inc.php(10): PDO->__construct('mysql:host=loca...', 'root', 'mysql')
+#1 /home/sprouttech/public_html/version1.1.0/loginProcess.php(6): getDatabaseConnection()
+#2 {main}
+  thrown in /home/sprouttech/public_html/version1.1.0/includes/database.inc.php on line 10
+[20-Jan-2016 22:31:13 UTC] PHP Fatal error:  Uncaught exception 'PDOException' with message 'SQLSTATE[28000] [1045] Access denied for user 'root'@'localhost' (using password: YES)' in /home/sprouttech/public_html/version1.1.0/includes/database.inc.php:10
+Stack trace:
+#0 /home/sprouttech/public_html/version1.1.0/includes/database.inc.php(10): PDO->__construct('mysql:host=loca...', 'root', 'mysql')
+#1 /home/sprouttech/public_html/version1.1.0/loginProcess.php(6): getDatabaseConnection()
+#2 {main}
+  thrown in /home/sprouttech/public_html/version1.1.0/includes/database.inc.php on line 10
+[20-Jan-2016 22:31:14 UTC] PHP Fatal error:  Uncaught exception 'PDOException' with message 'SQLSTATE[28000] [1045] Access denied for user 'root'@'localhost' (using password: YES)' in /home/sprouttech/public_html/version1.1.0/includes/database.inc.php:10
+Stack trace:
+#0 /home/sprouttech/public_html/version1.1.0/includes/database.inc.php(10): PDO->__construct('mysql:host=loca...', 'root', 'mysql')
+#1 /home/sprouttech/public_html/version1.1.0/loginProcess.php(6): getDatabaseConnection()
+#2 {main}
+  thrown in /home/sprouttech/public_html/version1.1.0/includes/database.inc.php on line 10
+[20-Jan-2016 22:31:15 UTC] PHP Fatal error:  Uncaught exception 'PDOException' with message 'SQLSTATE[28000] [1045] Access denied for user 'root'@'localhost' (using password: YES)' in /home/sprouttech/public_html/version1.1.0/includes/database.inc.php:10
+Stack trace:
+#0 /home/sprouttech/public_html/version1.1.0/includes/database.inc.php(10): PDO->__construct('mysql:host=loca...', 'root', 'mysql')
+#1 /home/sprouttech/public_html/version1.1.0/loginProcess.php(6): getDatabaseConnection()
+#2 {main}
+  thrown in /home/sprouttech/public_html/version1.1.0/includes/database.inc.php on line 10
+[20-Jan-2016 22:31:15 UTC] PHP Fatal error:  Uncaught exception 'PDOException' with message 'SQLSTATE[28000] [1045] Access denied for user 'root'@'localhost' (using password: YES)' in /home/sprouttech/public_html/version1.1.0/includes/database.inc.php:10
+Stack trace:
+#0 /home/sprouttech/public_html/version1.1.0/includes/database.inc.php(10): PDO->__construct('mysql:host=loca...', 'root', 'mysql')
+#1 /home/sprouttech/public_html/version1.1.0/loginProcess.php(6): getDatabaseConnection()
+#2 {main}
+  thrown in /home/sprouttech/public_html/version1.1.0/includes/database.inc.php on line 10
+[20-Jan-2016 22:31:16 UTC] PHP Fatal error:  Uncaught exception 'PDOException' with message 'SQLSTATE[28000] [1045] Access denied for user 'root'@'localhost' (using password: YES)' in /home/sprouttech/public_html/version1.1.0/includes/database.inc.php:10
+Stack trace:
+#0 /home/sprouttech/public_html/version1.1.0/includes/database.inc.php(10): PDO->__construct('mysql:host=loca...', 'root', 'mysql')
+#1 /home/sprouttech/public_html/version1.1.0/loginProcess.php(6): getDatabaseConnection()
+#2 {main}
+  thrown in /home/sprouttech/public_html/version1.1.0/includes/database.inc.php on line 10
+[20-Jan-2016 22:31:16 UTC] PHP Fatal error:  Uncaught exception 'PDOException' with message 'SQLSTATE[28000] [1045] Access denied for user 'root'@'localhost' (using password: YES)' in /home/sprouttech/public_html/version1.1.0/includes/database.inc.php:10
+Stack trace:
+#0 /home/sprouttech/public_html/version1.1.0/includes/database.inc.php(10): PDO->__construct('mysql:host=loca...', 'root', 'mysql')
+#1 /home/sprouttech/public_html/version1.1.0/loginProcess.php(6): getDatabaseConnection()
+#2 {main}
+  thrown in /home/sprouttech/public_html/version1.1.0/includes/database.inc.php on line 10
