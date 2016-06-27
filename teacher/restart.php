@@ -21,8 +21,8 @@ session_start();
     $theInfo = getClassInfo();
    
  	
-	$sql = "INSERT INTO classes(classId, className, teacherId, notes)
-    		VALUES(:classId, :className, :teacherId, :notes)";
+	$sql = "INSERT INTO classes(classId, className, teacherId)
+    		VALUES(:classId, :className, :teacherId)";
 			   
 
 
@@ -30,7 +30,6 @@ session_start();
     $namedParameters[':classId'] = $theInfo['classId'];
     $namedParameters[':className'] = $theInfo['className'];
 	$namedParameters[':teacherId'] = $theInfo['teacherId'];
-    $namedParameters[':notes'] = $theInfo['notes'];
       
     $dbConn = getDatabaseConnection();	
     $statement = $dbConn->prepare($sql);

@@ -39,17 +39,17 @@
              </a>";
 		echo "</td>";
 		echo "<td>";
-		echo "<a href='stats.php?classId= {$record['questionId']}'>
+		echo "<a target='_parent' href='./charts/classChart.php?questionId= {$record['questionId']}'>
                  <span class='glyphicon glyphicon-stats icon-padding'></span>
               </a>";
 		echo "</td>";
 		echo "<td>";
-		echo "<a href='restart.php?classId= {$record['questionId']}'>
+		echo "<a target='_parent' href='timer.php?questionId= {$record['questionId']}'>
                  <span class='glyphicon glyphicon-eye-open icon-padding'></span>
               </a>";
 		echo "</td>";
 		echo "<td>";
-		echo "<a href='restart.php?classId= {$record['questionId']}'>
+		echo "<a href='estart.php?classId= {$record['questionId']}'>
                  <span class='glyphicon glyphicon-eye-close icon-padding'></span>
               </a>";
 		echo "</td>";
@@ -69,7 +69,8 @@
     <script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
     <!-- Bootstrap -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
-
+    <link href="../bootstrap-3.3.6-dist/css/bootstrap.min.css" rel="stylesheet">
+    
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>

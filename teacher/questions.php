@@ -6,7 +6,10 @@ $dbConn = getDatabaseConnection(); //gets database connection
 
 if (!isset($_SESSION['username'])) {  //checks whether user has logged in
 	
-	header('Location: ../index.php');
+    session_start();
+    session_destroy();
+    header('Location: ../index.php');
+    exit;
 	
 }
 
@@ -14,6 +17,7 @@ if (!isset($_SESSION['username'])) {  //checks whether user has logged in
 if(!empty($_GET['classId'])){
     $_SESSION['classId'] = $_GET['classId'];
 }
+
 if (!isset($_SESSION['username'])) {  //checks whether user has logged in
 	
 	header('Location: ../index.php');
@@ -59,6 +63,8 @@ $sql = "SELECT * FROM lecture
   <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 	
     <script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
+    <link href="../bootstrap-3.3.6-dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="../bootstrap-3.3.6-dist/fonts/glyphicons-halflings-regular.eot" rel="stylesheet">
     <!-- Bootstrap -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
 
@@ -99,7 +105,13 @@ integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7
     <br />
     <div class="row">
        <div class="col-md-6">
-          <strong><h3> Welcome <?=$_SESSION['fName']?>! <h3></strong>  
+          <div class="col-md-6 top-button-padding">
+             <strong><h3> Welcome <?=$_SESSION['fName']?>! <h3></strong>
+             <form action="teacherHome.php">
+                <input type="submit" id="logout-button" class="btn btn-default btn-md btn-primary" value="Back to Classes" />	
+             </form>
+             
+          </div>          
        </div>
        <div class="col-md-2 top-button-padding">
           <form action="addCodeGenorator.php" method="get">

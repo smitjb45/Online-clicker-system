@@ -10,7 +10,7 @@
 	
 	
     $sql = "SELECT studentAnswer, COUNT(studentAnswer) FROM studentAnswers 
-            WHERE questionId = " . $_SESSION["questionId"] . "
+            WHERE questionId = " . $_GET["questionId"] . "
             GROUP BY studentAnswer";
         
 	$records = getDataBySQL($sql);
@@ -19,7 +19,7 @@
 	
     return $records;
 }
-
+print_r($_GET["questionId"]);
 function getChartDataCorrect(){
         
    global $dbConn; 
@@ -55,7 +55,7 @@ function getChartDataSex(){
     return $records;
 }
 
-getChartDataSex();
+//getChartDataSex();
 ?>
 <!DOCTYPE html>
 <html lang="en">

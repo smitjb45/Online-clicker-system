@@ -63,7 +63,7 @@ if (isset($_POST['addForm'])) {  //admin submitted form to add user
   <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 	<script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
     <!-- Bootstrap -->
-    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="bootstrap-3.3.6-dist/css/bootstrap.min.css" rel="stylesheet">
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -87,83 +87,37 @@ integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7
 <link rel="stylesheet" type="text/css" href="css/styles.css">
     <script>
   
-  	 	
-  	function getCity(){
-  		
-  		//alert($("#zipCode").val());
-  		
-      $.ajax({
-            type: "get",
-            url: "http://hosting.otterlabs.org/laramiguel/ajax/zip.php",
-            dataType: "json",
-            data: { "zip_code":$("#zipCode").val()},
-            success: function(data,status) {
-                 //alert(data['city']);
-                 $("#city").html(data['city']);
-                 $("#latitude").html(data['latitude']);
-                 $("#longitude").html(data['longitude']);
-              },
-              complete: function(data,status) { //optional, used for debugging purposes
-                  //alert(status);
-              }
-         }); //end Ajax  		
-  		
-  	} //endFunction
-  	
-     function getCounty(){
-         	
-         	//alert($("#state").val());
-         	
-         $.ajax({
-            type: "get",
-            url: "http://hosting.otterlabs.org/laramiguel/ajax/countyList.php",
-            dataType: "json",
-            data: { "state":$("#state").val() },
-            success: function(data,status) {
-                 //alert(data['counties'][0].county);
-                 
-                 $("#county").html("<option> - Select One - </option>");
-                 
-                 for (var i=0; i < data['counties'].length;  i++) {
-                 	
-                 	$("#county").append("<option>" + data['counties'][i].county + "</option>");
-                 	
-                 }
-                 
-                 
-              },
-            complete: function(data,status) { //optional, used for debugging purposes
-                 //alert(status);
-              }
-         });
 
-         	
-     } //endFunction
   	
   	function checkPassword()
   	{
   		if($('#password').val().length < 8){
   			$('#passwordError').html("The password must be longer than 8 characters!");
-  			return;
+  			return false;
   		}
   		
   		if ( !/[0-9]/.test($('#password').val()) ) {
   			$('#passwordError').html("The password must have one digit!");
-  			return;
+  			return false;
   		}
   		
   		if ( !/[A-Z]/.test($('#password').val()) ) {
   			$('#passwordError').html("The password must have one uppercase character!");
-  			return;
+  			return false;
   		}  		
+        
+        $('#passwordError').html("The password is good!");
+        return true;
   		
   	}
   	
   	function checkEmail()
   	{
+        var flag = true;
+        
   		if ( !/[@]/.test($('#email').val()) ) {
   			$('#emailError').html("Must be a valid email address");
-  			return;
+  			return false;
   		}  			
 		
 		 $.ajax({
@@ -179,12 +133,15 @@ integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7
             	   $('#emailError').css("color","red");
             	   $('#email').css("backgroundColor","red");
             	   
+                   flag = false;
             		
             	} else {
             		
             	   $('#emailError').html("Available!");
             	   $('#emailError').css("color","green");
             	   $('#username').css("backgroundColor","");
+                   
+                
             		
             	}
             	
@@ -193,7 +150,8 @@ integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7
             complete: function(data,status) { //optional, used for debugging purposes
                  //alert(status);
               }
-         });  		
+         });
+         return flag;         
   	}
   	
   	function checkPhone()
@@ -206,11 +164,12 @@ integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7
   	function checkUsername()
   	{
   		//alert($('#username').val());
-  		
+  		var flag = true;
+        
   		if($('#username').val().length < 5){
   			
   			$('#usernameError').html("Username must be longer than 5 characters!");
-  			return;
+  			return false;
   			
   		}
   		
@@ -228,6 +187,8 @@ integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7
             	   $('#usernameError').css("color","red");
             	   $('#username').css("backgroundColor","red");
             	   
+                   
+                   flag = false;
             		
             	} else {
             		
@@ -236,23 +197,35 @@ integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7
             	   $('#username').css("backgroundColor","");
             		
             	}
-            	
-                 
               },
             complete: function(data,status) { //optional, used for debugging purposes
                  //alert(status);
               }
          });  		
-  		
+  		return flag;
   		
   	}
-  	
+       function validate(){
+           
+        //   alert(checkUsername());
+        //   alert(checkPassword());
+        //   alert(checkEmail());
+           
+           if(checkUsername() && checkPassword() && checkEmail())
+           {
+           //    alert("valid");
+              return true;
+           } else {
+             //  alert("not valid");
+               return false;
+           }
+       }
+       
     $( document ).ready(function() {
       //console.log( "ready!" );
         $("#username").change(function(){checkUsername()});
         $("#password").change(function(){checkPassword()});
         $("#email").change(function(){checkEmail()});
- 
      });
   	
   	
@@ -272,23 +245,23 @@ integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7
     <br />
     <div id="row">
       
-      <form method="post">
+      <form method="post" onsubmit="return validate()" >
       	<div class="col-md-6">
-      	   <p>First Name:</p> <input type="text" name="fName" required/> <br />
-      	   <p>Last Name:</p> <input type="text" name="lName" required/> <br />
+      	   <p>First Name:</p> <input type="text" name="fName" required /> <br />
+      	   <p>Last Name:</p> <input type="text" name="lName" required /> <br />
       	   <p>Email:</p> <input type="text" name="email" id="email"><span id="emailError"></span><br /><br />
       	   <p>Username:</p> <input type="text" name="username" id="username"><span id="usernameError"></span><br />
 		</div>
         <div class="col-md-6">
-           <p>Password:</p> <input type="text" name="password" required/> <br />
-		   <p>School Name:</p> <input type="text" name="schoolName" required/> <br />
+           <p>Password:</p> <input type="password" id="password" name="password" required /><span id="passwordError"></span><br />
+		   <p>School Name:</p> <input type="text" name="schoolName" required /> <br />
       	
       	   <p>User type:<p/> <select name="userType">
       		                    <option value="student">Student</option>
       		                    <option value="teacher">Teacher</option>
       	                     </select>
         </div>       
-      	<input type="submit" id="signup-btn" class="btn btn-default btn-md btn-primary top-button-padding" value="Sign Up!" name="addForm" />
+      	<input type="submit" name="addForm" id="signup-btn" class="btn btn-default btn-md btn-primary top-button-padding" value="Sign Up!"  />
       </form>
     </div>
         <div class="row">

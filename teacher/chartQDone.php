@@ -11,6 +11,7 @@
 	
     $sql = "SELECT studentAnswer, COUNT(studentAnswer) FROM studentAnswers 
             WHERE questionId = " . $_SESSION["questionId"] . "
+            AND showQuestionId = " . $_SESSION["showQuestionId"] . "
             GROUP BY studentAnswer";
         
 	$records = getDataBySQL($sql);
@@ -100,7 +101,7 @@ integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7
   
     <div class="container">
        <div class="col-sm-12 white-background">
-          <h1>Welcome to Sprout</h1>
+          <h1>The Correct Answer is</h1>
           <br />
 	   </div>
      <div>

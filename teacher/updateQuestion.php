@@ -6,11 +6,12 @@ include '../includes/database.inc.php';
  
  if(strcmp($_SESSION['userType'], "student") == 0){
 		
-		session_start();
-            session_destroy();
-            header('Location: ../index.php');
-            exit;	
-	}
+	session_start();
+    session_destroy();
+    header('Location: ../index.php');
+    exit;	
+
+    }
 
 function getAnswerInfo(){
    global $dbConn;
@@ -55,36 +56,31 @@ if (isset($_GET['updateForm'])) {  //admin submitted the Update Form
  
 		$sql = "UPDATE questions
 		   	   SET question = :question,
-		 	   showQuestion = :showQuestion,
 			   questionOrder = :questionOrder
 			   WHERE questionId = :questionId";
 			   
 			   $sql1 = "UPDATE answers
 		   	   SET questionId = :questionId,
 			   answer = :answerOne,
-		 	   correct = :correct1,
-			   showAnswer = :showAnswer
+		 	   correct = :correct1
 			   WHERE answerId = :answerId1";
 			   
 			   $sql2 = "UPDATE answers
 		   	   SET questionId = :questionId,
 			   answer = :answerTwo,
-		 	   correct = :correct2,
-			   showAnswer = :showAnswer
+		 	   correct = :correct2
 			   WHERE answerId = :answerId2";
 			 
 			   $sql3 = "UPDATE answers
 		   	   SET questionId = :questionId,
 			   answer = :answerThree,
-		 	   correct = :correct3,
-			   showAnswer = :showAnswer
+		 	   correct = :correct3
 			   WHERE answerId = :answerId3";
 			   
 			   $sql4 = "UPDATE answers
 		   	   SET questionId = :questionId,
 			   answer = :answerFour,
-		 	   correct = :correct4,
-			   showAnswer = :showAnswer
+		 	   correct = :correct4
 			   WHERE answerId = :answerId4
 			   ";	   
  
@@ -118,34 +114,29 @@ if (isset($_GET['updateForm'])) {  //admin submitted the Update Form
        $namedParameters = array();
        $namedParameters[':questionId'] = $_GET['questionId'];
        $namedParameters[':question'] = $_GET['question'];
-	   $namedParameters[':showQuestion'] = "N";
 	   $namedParameters[':questionOrder'] = $_GET['questionOrder'];
 	
 	
 	   $namedParameters1 = array();
 	   $namedParameters1[':questionId'] = $_GET['questionId'];
-	   $namedParameters1[':showAnswer'] = "N";
 	   $namedParameters1[':answerOne'] = $_GET['answerOne'];
 	   $namedParameters1[':correct1'] = $answer1;
 	   $namedParameters1[':answerId1'] = $_GET['answerId'];
 	
 	   $namedParameters2 = array();
 	   $namedParameters2[':questionId'] = $_GET['questionId'];
-	   $namedParameters2[':showAnswer'] = "N";
 	   $namedParameters2[':answerTwo'] = $_GET['answerTwo'];
 	   $namedParameters2[':correct2'] = $answer2;
 	   $namedParameters2[':answerId2'] = $_GET['answerId1'];
 	
 	   $namedParameters3 = array();
 	   $namedParameters3[':questionId'] = $_GET['questionId'];
-	   $namedParameters3[':showAnswer'] = "N";
 	   $namedParameters3[':answerThree'] = $_GET['answerThree'];
 	   $namedParameters3[':correct3'] = $answer3;
 	   $namedParameters3[':answerId3'] = $_GET['answerId2'];
 	
 	   $namedParameters4 = array();
 	   $namedParameters4[':questionId'] = $_GET['questionId'];
-	   $namedParameters4[':showAnswer'] = "N";
 	   $namedParameters4[':answerFour'] = $_GET['answerFour'];
 	   $namedParameters4[':correct4'] = $answer4;
 	   $namedParameters4[':answerId4'] = $_GET['answerId3'];
@@ -178,22 +169,21 @@ function insertAnswers(){
 		$sql = "UPDATE questions
 		   	   SET 
 			   question = :question,
-		 	   showQuestion = :showQuestion,
 			   questionOrder = :questionOrder
 			   WHERE questionId = :questionId";
 
 			
-			    $sql1 = "INSERT INTO answers(questionId, answer, correct, showAnswer)
-    		   VALUES(:questionId, :answerOne, :correct1, :showAnswer);";
+			    $sql1 = "INSERT INTO answers(questionId, answer, correct)
+    		   VALUES(:questionId, :answerOne, :correct1);";
 			
-			    $sql2 = "INSERT INTO answers(questionId, answer, correct, showAnswer)
-    		   VALUES(:questionId, :answerTwo, :correct2, :showAnswer);";
+			    $sql2 = "INSERT INTO answers(questionId, answer, correct)
+    		   VALUES(:questionId, :answerTwo, :correct2);";
 			
-			    $sql3 = "INSERT INTO answers(questionId, answer, correct, showAnswer)
-    		   VALUES(:questionId, :answerThree, :correct3, :showAnswer);";
+			    $sql3 = "INSERT INTO answers(questionId, answer, correct)
+    		   VALUES(:questionId, :answerThree, :correct3,);";
 			
-			    $sql4 = "INSERT INTO answers(questionId, answer, correct, showAnswer)
-    		   VALUES(:questionId, :answerFour, :correct4, :showAnswer);";
+			    $sql4 = "INSERT INTO answers(questionId, answer, correct)
+    		   VALUES(:questionId, :answerFour, :correct4);";
 	
 			   
  
@@ -227,21 +217,18 @@ function insertAnswers(){
     $namedParameters = array();
     $namedParameters[':questionId'] = $_GET['questionId'];
     $namedParameters[':question'] = $_GET['question'];
-	$namedParameters[':showQuestion'] = "N";
 	$namedParameters[':questionOrder'] = $_GET['questionOrder'];
 	
 	
 	
 	$namedParameters1 = array();
 	$namedParameters1[':questionId'] = $_GET['questionId'];
-	$namedParameters1[':showAnswer'] = "N";
 	$namedParameters1[':answerOne'] = $_GET['answerOne'];
 	$namedParameters1[':correct1'] = $answer1;
 	
 	
 	$namedParameters2 = array();
 	$namedParameters2[':questionId'] = $_GET['questionId'];
-	$namedParameters2[':showAnswer'] = "N";
 	$namedParameters2[':answerTwo'] = $_GET['answerTwo'];
 	$namedParameters2[':correct2'] = $answer2;
 
@@ -249,7 +236,6 @@ function insertAnswers(){
 	
 	$namedParameters3 = array();
 	$namedParameters3[':questionId'] = $_GET['questionId'];
-	$namedParameters3[':showAnswer'] = "N";
 	$namedParameters3[':answerThree'] = $_GET['answerThree'];
 	$namedParameters3[':correct3'] = $answer3;
 	
@@ -257,7 +243,6 @@ function insertAnswers(){
     
     $namedParameters4 = array();
 	$namedParameters4[':questionId'] = $_GET['questionId'];
-	$namedParameters4[':showAnswer'] = "N";
 	$namedParameters4[':answerFour'] = $_GET['answerFour'];
 	$namedParameters4[':correct4'] = $answer4;
 

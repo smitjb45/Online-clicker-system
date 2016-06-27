@@ -20,14 +20,13 @@ session_start();
  function sendToEnded(){
     $theInfo = getClassInfo();
    
-	$sql = "INSERT INTO endedClasses(classId, className, teacherId, notes, startDate)
-    		VALUES(:classId, :className, :teacherId, :notes, :startDate)";
+	$sql = "INSERT INTO endedClasses(classId, className, teacherId, startDate)
+    		VALUES(:classId, :className, :teacherId, :startDate)";
 
     $namedParameters = array();
     $namedParameters[':classId'] = $theInfo['classId'];
     $namedParameters[':className'] = $theInfo['className'];
 	$namedParameters[':teacherId'] = $theInfo['teacherId'];
-    $namedParameters[':notes'] = $theInfo['notes'];
 	$namedParameters[':startDate'] = $theInfo['startDate'];
       
     $dbConn = getDatabaseConnection();	

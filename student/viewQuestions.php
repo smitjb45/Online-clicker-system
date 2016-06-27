@@ -5,14 +5,17 @@ include '../includes/database.inc.php';
 $dbConn = getDatabaseConnection(); //gets database connection
 
 if (!isset($_SESSION['username'])) {  //checks whether user has logged in
-	
-	header('Location: ../index.php');
+	session_start();
+    session_destroy();
+    header('Location: ../index.php');
+    exit;
 }
+
 
 if (isset($_GET['submitForm'])) {  //admin submitted the Update Form
 
-		$sql = "INSERT INTO studentAnswers(questionId, lectureId, classId, correct, studentAnswer, studentId)
-    		   VALUES(:questionId, :lectureId, :classId, :correct, :studentAnswer, :studentId)";
+		$sql = "INSERT INTO studentAnswers(questionId, lectureId, classId, correct, studentAnswer, studentId, showQuestionId)
+    		   VALUES(:questionId, :lectureId, :classId, :correct, :studentAnswer, :studentId, :showQuestionId)";
 			   
        $namedParameters = array();
        $namedParameters[':questionId'] = $_GET['questionId'];
@@ -21,14 +24,16 @@ if (isset($_GET['submitForm'])) {  //admin submitted the Update Form
        $namedParameters[':correct'] = $_GET['answer'][1];
 	   $namedParameters[':studentAnswer'] = $_GET['answer'][0];
 	   $namedParameters[':studentId'] = $_SESSION['userId'];
+       $namedParameters[':showQuestionId'] = $_GET['showQuestionId']
 
        $statement = $dbConn->prepare($sql);
        $statement->execute($namedParameters);
        
-       $_SESSION['questionId'] = $_GET['questionId'];
+      // $_SESSION['questionId'] = $_GET['questionId'];
    	   
        header('Location: ./studentHome.php');
 }
+
 function displayQA(){
 	
 	global $dbConn;
@@ -43,23 +48,24 @@ $sql = "SELECT * FROM showQuestion
 	return $records;
 }
 
-function checkIfAnswered(){
-	
+$theRecords = displayQA();
+
+function checkIfAnswered($question_id){
+
 	global $dbConn;
-    global $_SESSION['userId'];
 	
-$sql = "SELECT studentId FROM studentAnswers";
+$sql = "SELECT studentId FROM studentAnswers where questionId = {$question_id} AND studentId = {$_SESSION['userId']}";
 
 	$records = getDataBySQL($sql);
-	
-    return($records);
-	
 
+    return($records);
 }
 
-    if(in_array($_SESSION['userId'], checkIfAnswered())){
-        header('Location: ./studentHome.php');
-    }
+//    if(isset($theRecords[0]['questionId'])){
+//       if(!empty(checkIfAnswered($theRecords[0]['questionId']))){
+//          header('Location: ./studentHome.php');
+//       }    
+//    }
 ?>
 
 
@@ -152,8 +158,8 @@ integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7
     </header>
     <div class="container">
      <strong><h2> Welcome <?=$_SESSION['fName']?>! </h2></strong>
-	<?php $theRecords = displayQA();
-       print_r(theRecords);
+	<?php 
+       
     ?>
 	<hr />
     <div class="row">

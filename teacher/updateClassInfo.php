@@ -32,13 +32,11 @@ if (isset($_GET['updateForm'])) {  //admin submitted the Update Form
 	
 	$sql = "UPDATE classes
 			SET className = :className,
-			notes = :notes,
 			startDate = :startDate
 			WHERE classId = :classId";
 		
 	$namedParameters = array();
 	$namedParameters[':className'] = $_GET['className'];
-    $namedParameters[':notes'] = $_GET['notes'];
     $namedParameters[':startDate'] = $_GET['startDate'];
     $namedParameters[':classId'] = $_GET['classId'];	
 
@@ -113,7 +111,6 @@ integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7
 		<br />
 		<p>Class Name:</p> <input type="text" name="className" value="<?=$theUserInfo['className']?>" required/> <br />
       	<br />
-        <p>Notes:</p> <textarea rows="50" cols="80" name="notes" id="notes"><?=$theUserInfo['notes']?></textarea><br /><br />
 		<input type="hidden" name="startDate" value="<?=$theUserInfo['startDate']?>" required/> <br />
       	</div>
       	<br />          
