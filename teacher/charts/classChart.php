@@ -20,6 +20,7 @@
     return $records;
 }
 print_r($_GET["questionId"]);
+
 function getChartDataCorrect(){
         
    global $dbConn; 

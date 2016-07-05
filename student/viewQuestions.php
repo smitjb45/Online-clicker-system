@@ -24,7 +24,7 @@ if (isset($_GET['submitForm'])) {  //admin submitted the Update Form
        $namedParameters[':correct'] = $_GET['answer'][1];
 	   $namedParameters[':studentAnswer'] = $_GET['answer'][0];
 	   $namedParameters[':studentId'] = $_SESSION['userId'];
-       $namedParameters[':showQuestionId'] = $_GET['showQuestionId']
+       $namedParameters[':showQuestionId'] = $_GET['showQuestionId'];
 
        $statement = $dbConn->prepare($sql);
        $statement->execute($namedParameters);
@@ -213,7 +213,7 @@ integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7
        <div class="row">
            <div class="col-sm-offset-2 col-sm-8">
                 <br />
-                <input type="submit" name="submitForm" class="btn btn-default btn-md btn-primary" value="Submit Answers" />
+                <input type="submit" id="submitButton" name="submitForm" class="btn btn-default btn-md btn-primary" value="Submit Answers" />
                </div>
            <div class="col-sm-2">
            </div>

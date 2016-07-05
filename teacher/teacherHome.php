@@ -175,8 +175,8 @@ integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7
                 <input type="button" value="Update Info" class="btn btn-default btn-md btn-primary" onclick="updateUser()" >
              </div>
 	         <div class="col-sm-2 top-button-padding">
-                <form action="studentReports.php?studentId=" . $employeeRec['studentId'] . "">
-                   <input type="submit" id="logout-button" class="btn btn-default btn-md btn-primary" value="reports" />	
+                <form action="createClass.php">
+                   <input type="submit" id="logout-button" class="btn btn-default btn-md btn-primary" value="Add A New Class" />	
                 </form>
             </div>
             <div class="col-sm-2 top-button-padding">

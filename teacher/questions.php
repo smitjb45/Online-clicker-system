@@ -40,6 +40,21 @@ $sql = "SELECT * FROM lecture
   return $records;
 }
 
+function getAddCode(){
+	
+	global $dbConn;
+	
+
+$sql = "SELECT addCode FROM addCode	
+		WHERE classId = {$_SESSION['classId']}";
+
+	$records = getDataBySQL($sql);
+	
+	//print_r($records);
+
+  return $records[0]['addCode'];
+}
+
 ?>
 
 
@@ -114,13 +129,14 @@ integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7
           </div>          
        </div>
        <div class="col-md-2 top-button-padding">
-          <form action="addCodeGenorator.php" method="get">
+          <form action="addLecture.php" method="get">
 	         <input type="hidden" name="classId" value="<?=$_GET['classId']?>" />
              <input type="submit" id="addLecture" class="btn btn-default btn-md btn-primary" value="Add Lecture" name="addLecture" />	
           </form>
+          <?php echo "<b class='col-md-2 top-button-padding' >" . getAddCode() . "</b>"; ?> 
        </div>
        <div class="col-md-2 top-button-padding">
-          <form action="studentReports.php?studentId="<?=$_GET['classId']?>"">
+          <form action="addCodeGenerator.php?classId="<?=$_GET['classId']?>"">
              <input type="submit" id="logout-button" class="btn btn-default btn-md btn-primary" value="Get Add Code" />	
           </form>
        </div>
@@ -128,6 +144,14 @@ integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7
           <form action="../logout.php">
              <input type="submit" id="logout-button" class="btn btn-default btn-md btn-primary" value="Logout" name="logout" />	
           </form>
+       </div>
+    </div>
+    <div class="row">
+       <div class="col-md-6 top-button-padding">
+       
+       </div>
+       <div class="col-md-6 top-button-padding">
+          
        </div>
     </div>
     <div>

@@ -12,6 +12,7 @@ if (!isset($_SESSION['username'])) {  //checks whether user has logged in
 	
 }
 
+
  function deleteShowQuestion(){
 	 
  
@@ -38,11 +39,9 @@ $sql = "SELECT * FROM showQuestion
 
 	$records = getDataBySQL($sql);
 	
-	print_r($records);
+	//print_r($records);
     
-    $_SESSION["questionId"] = $_GET['questionId'];
-    $_SESSION["showQuestionId"] = $records['showQuestionId']
-
+    return $records;
 }
 
 function questionCheck(){
@@ -55,13 +54,17 @@ $sql = "SELECT * FROM showQuestion
 
 	$records = getDataBySQL($sql);
     
-    return $records;
+    if(!isset($records)){
+       return true;    
+    }else{
+        return false;
+    }
+    
 }
 
 
-print_r($_GET['questionId']);
-
-if (isset($_GET['questionId']) && !isset(questionCheck())) {  //admin submitted the Update Form
+//print_r($_SESSION);
+if (true) {  //admin submitted the Update Form
 	
 	$sql = "INSERT INTO showQuestion(questionId, classId)
     		VALUES(:questionId, :classId);";
@@ -76,7 +79,14 @@ if (isset($_GET['questionId']) && !isset(questionCheck())) {  //admin submitted 
 }
 
 if (isset($_GET['goTOStats'])) {  //admin submitted the Update Form
-	getQuestionInfo();
+	$records = getQuestionInfo();
+    
+    //print_r($records);
+    print_r($records[0]['showQuestionId']);
+    $_SESSION["questionId"] = $_GET['questionId'];
+    $_SESSION["showQuestionId"] = $records[0]['showQuestionId'];
+    
+    print_r($_GET['showQuestionId']);
     deleteShowQuestion();
     
     header('location: ./chartQDone.php');
@@ -150,8 +160,6 @@ integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7
               'seconds': seconds
              };
         }
-    
-
 
         function initializeClock(clockdiv, endtime){
            var timeinterval = setInterval(function(){
@@ -180,12 +188,8 @@ integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7
 </head>
 
 <body>
-
-
-
 	<div class="row">
 	   <div class="col-md-4">
-	      
 	   </div>
        <div id="clockdiv" class="col-md-4">
           Days: <span class="days"></span><br>
@@ -194,11 +198,14 @@ integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7
           Seconds: <span class="seconds"></span>
       </div>
 	   <div class="col-md-4">
-
 	   </div>
     </div>
-
-<input type="submit" name="goTOStats" class="btn btn-default btn-md btn-primary">Finish</input>
+    <form>
+            <?php $records = getQuestionInfo(); ?>
+          
+          	<input type="hidden" name="questionId" value="<?= $_GET['questionId']?>" />
+       <input type="submit" name="goTOStats" class="btn btn-default btn-md btn-primary" value="finish">
+    </form>
   </div>
       <footer id="footer">
 			<hr />

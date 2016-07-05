@@ -55,7 +55,7 @@ function getChartDataSex(){
     return $records;
 }
 
-getChartDataSex();
+//getChartDataSex();
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -94,7 +94,7 @@ integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7
 <link rel="stylesheet" type="text/css" href="../../css/styles.css">
 
 <script src="../../Chart.js-master/Chart.js"></script>
-<?php $records = getChartData();?>
+<?php //$records = getChartData();?>
 	
 
     

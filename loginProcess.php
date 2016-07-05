@@ -1,7 +1,7 @@
 <?php
 session_start();
 
-include 'includes/database.inc.php';
+include_once 'includes/database.inc.php';
 
 $conn = getDatabaseConnection(); //gets database connection
 

@@ -330,10 +330,10 @@ integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7
 	
 		<p>Question Order:</p><input type="text" name="questionOrder" value="<?= $theUserInfo['questionOrder']?>" required/> <br />
 		<p>Question:</p> <textarea rows="20" cols="40" name="question" id="question" required><?= $theUserInfo['question']?></textarea><br /><br />
-		<p>Answer One:</p> <textarea rows="3" cols="20" name="answerOne" id="answerOne"  required><?= $theAnswerInfo[0]['answer']?></textarea><p>true?</p><input type="radio" name="answer" value="A"><br /><br />
-	    <p>Answer Two:</p> <textarea rows="3" cols="20" name="answerTwo" id="answerTwo" required><?= $theAnswerInfo[1]['answer']?></textarea><p>true?</p><input type="radio" name="answer" value="B"><br /><br />
-		<p>Answer Three:</p> <textarea rows="3" cols="20" name="answerThree" id="answerThree" required><?= $theAnswerInfo[2]['answer']?></textarea><p>true?</p><input type="radio" name="answer" value="C"><br /><br />
-		<p>Answer Four:</p> <textarea rows="3" cols="20" name="answerFour" id="answerFour" required><?= $theAnswerInfo[3]['answer']?></textarea><p>true?</p><input type="radio" name="answer" value="D"><br /><br />
+		<p>Answer One:</p> <textarea rows="3" cols="20" name="answerOne" id="answerOne"  required><?= $theAnswerInfo[0]['answer']?></textarea><p>true?</p><input type="radio" name="answer" value="A" required /><br /><br />
+	    <p>Answer Two:</p> <textarea rows="3" cols="20" name="answerTwo" id="answerTwo" required><?= $theAnswerInfo[1]['answer']?></textarea><p>true?</p><input type="radio" name="answer" value="B" /><br /><br />
+		<p>Answer Three:</p> <textarea rows="3" cols="20" name="answerThree" id="answerThree" required><?= $theAnswerInfo[2]['answer']?></textarea><p>true?</p><input type="radio" name="answer" value="C" /><br /><br />
+		<p>Answer Four:</p> <textarea rows="3" cols="20" name="answerFour" id="answerFour" required><?= $theAnswerInfo[3]['answer']?></textarea><p>true?</p><input type="radio" name="answer" value="D" /><br /><br />
 		
       	</div>
       	<br />          

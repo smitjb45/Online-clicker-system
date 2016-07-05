@@ -10,8 +10,8 @@
 	
 	
     $sql = "SELECT studentAnswer, COUNT(studentAnswer) FROM studentAnswers 
-            WHERE questionId = " . $_SESSION["questionId"] . "
-            AND showQuestionId = " . $_SESSION["showQuestionId"] . "
+            WHERE questionId = {$_SESSION["questionId"]}
+            AND showQuestionId = {$_SESSION["showQuestionId"]}
             GROUP BY studentAnswer";
         
 	$records = getDataBySQL($sql);
@@ -62,6 +62,10 @@ integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7
 <?php $records = getChartData();?>
 	<script>
     
+    function goTeacherLecture(){
+        
+        document.location.href = "./questions.php";
+    }
     
    //   alert("hi");
                   
@@ -106,7 +110,7 @@ integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7
 	   </div>
      <div>
        <canvas id="myChart" class="white-background" width="200" height="100"></canvas>
-    
+       <input type="button" onclick="goTeacherLecture()" value="Done"/> 
 
     </div>
      
