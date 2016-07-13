@@ -1,3 +1,7 @@
+<?php
+include 'functions_utills.php';
+?>
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -5,10 +9,11 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-    <title>SproutTech</title>
+    <title>dodoboost</title>
     
 	<script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
     <!-- Bootstrap -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
     <link href="css/bootstrap.min.css" rel="stylesheet">
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
@@ -29,8 +34,10 @@ integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En
 <!-- Latest compiled and minified JavaScript -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" 
 integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+<link href='https://fonts.googleapis.com/css?family=Shadows+Into+Light|Bangers|Bitter:400,700' rel='stylesheet' type='text/css'>
 
-<link rel="stylesheet" type="text/css" href="css/styles.css">
+<link rel="stylesheet" type="text/css" href="css/styles2.css">
+
 
   <script>
      function signUp(){
@@ -41,11 +48,10 @@ integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7
   <body>
   
     <div class="container">
-       <div class="col-sm-12 white-background">
-          <h1>Welcome to Sprout</h1>
+       <div class="col-sm-12 margin-top">
+          <h1>Welcome to Dodoboost</h1>
           <br />
 	   </div>
-
 	   <div class="row">
 	     <div class="col-md-11">
             <br />
@@ -70,7 +76,7 @@ integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7
 	   <div class="row">
             <div class="col-sm-1">
             </div>
-	        <div class="col-sm-6 white-background">
+	        <div class="col-sm-6">
 		        <h4>
 			 Welcome to Sprout! SproutTech makes software tools for teachers to improve their teaching skills
 			 and plant spouts of information in their students. This site is under construction.
@@ -119,10 +125,5 @@ integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="js/bootstrap.min.js"></script>
   </body>
-           <footer id="footer">
-	      <hr />
-	      <p> the information included on this page may not be correct &copy; SpoutTech 2015</p>
-		  <img src="../img/logoSproutBottom.png" alt="Sprout logo" />
-	   </footer>
-
+  <?= theFooter(true); ?>
 </html>

@@ -1,6 +1,7 @@
 <?php
 session_start();
 include '../includes/database.inc.php';
+include '../functions_utills.php';
 
 $dbConn = getDatabaseConnection(); //gets database connection
 
@@ -44,7 +45,7 @@ $sql = "SELECT * FROM showQuestion
 		WHERE classId = {$_GET['classId']}";
 
 	$records = getDataBySQL($sql);
-	print_r($records);
+	//print_r($records);
 	return $records;
 }
 
@@ -79,7 +80,7 @@ $sql = "SELECT studentId FROM studentAnswers where questionId = {$question_id} A
        Remove this if you use the .htaccess -->
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 
-  <title>Student Homepage</title>
+  <title>View Question</title>
   <meta name="description" content="">
   <meta name="author" content="smit9960">
 
@@ -150,18 +151,14 @@ integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7
 </head>
 
 <body>
-    <header class="white-background">
-      <h1>student homepage</h1>
-     <form action="../logout.php">
-        <input type="submit" id="logout-button" class="btn btn-default btn-md btn-primary" value="Logout" name="logout" />	
-     </form>
+    <header class="">
+
     </header>
     <div class="container">
-     <strong><h2> Welcome <?=$_SESSION['fName']?>! </h2></strong>
-	<?php 
-       
-    ?>
 	<hr />
+    <form action="../logout.php">
+        <input type="submit" id="logout-button" class="btn btn-default btn-md btn-primary put-right" value="Logout" name="logout" />	
+     </form>
     <div class="row">
        <div class="col-sm-offset-4 col-sm-6">
           <p id="question"></p>
@@ -219,12 +216,7 @@ integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7
            </div>
        </div>
     </form>
-
+    <?= theFooter(false)?>
   </div>
-      <footer id="footer">
-			<hr />
-			<p> the information included on this page may not be correct, it was created in CST336 &copy; Joshua Smith 2015</p>
-			<img class="image-with border" src="../../img/csumb-logo.png" alt="csumb logo" />
-		</footer>
 </body>
 </html>

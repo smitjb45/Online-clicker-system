@@ -1,7 +1,7 @@
 <?php
 session_start();
 include '../includes/database.inc.php';
-
+include '../functions_utills.php';
 $dbConn = getDatabaseConnection(); //gets database connection
 
 if (!isset($_SESSION['username'])) {  //checks whether user has logged in
@@ -15,18 +15,16 @@ function displayClasses(){
 	
 	global $dbConn;
 	
-// $sql = "SELECT * FROM user LEFT JOIN classes ON user.userId = classes.teacherId WHERE user.userType = "teacher"";
+
 $sql = "SELECT * FROM enrolledStudents 
         LEFT JOIN classes ON enrolledStudents.classId = classes.classId
         LEFT JOIN user ON classes.teacherId = user.userId		
 		WHERE enrolledStudents.studentId = {$_SESSION['userId']} AND userType LIKE 'teacher'";
 
 	$records = getDataBySQL($sql);
-	
-	
+		
 	//print_r($records);
-	
-	
+
 	echo "<table class='table-bordered'>";
 	foreach ($records as $record) {
 		echo "<tr>";
@@ -63,7 +61,6 @@ $sql = "SELECT * FROM enrolledStudents
 	    echo "</tr>";
 	}
 	echo "</table>";
-	
 }
 
 ?>
@@ -112,6 +109,7 @@ integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" 
 integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
 
+<link href='https://fonts.googleapis.com/css?family=Shadows+Into+Light|Bangers|Bitter:400,700' rel='stylesheet' type='text/css'>
 <link rel="stylesheet" type="text/css" href="../css/styles.css">
 </head>
 
@@ -119,7 +117,7 @@ integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7
   <div class="container">
     <header>
        <div class="row">
-          <div class="col-sm-12 white-background">
+          <div class="col-sm-12 margin-top">
              <h1>Student Homepage</h1>
              <br />
           </div>
@@ -135,23 +133,15 @@ integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7
         </div>
         <div class="col-sm-2 top-button-padding">
            <form action="../logout.php">
-              <input type="submit" id="logout-button" class="btn btn-default btn-md btn-primary" value="Logout" name="logout" />	
+              <input type="submit" id="logout-button" class="btn btn-default btn-lg btn-bloc" value="Logout" name="logout" />	
            </form>
         </div>
         </div>
   
     <hr />	
     <br />
-    
 	<?= displayClasses()?>
-    
-    <footer id="footer">
-			<hr />
-			<p> the information included on this page may not be correct, it was created in CST336 &copy; Joshua Smith 2015</p>
-			
-			<img id="footer" src="../img/logoSproutBottom.png" alt="Sprout logo" />
-			
-		</footer>
+    <?=theFooter(false)?>
         </div>
   </div>
 </body>

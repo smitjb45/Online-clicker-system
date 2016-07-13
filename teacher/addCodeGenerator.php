@@ -41,30 +41,39 @@ function makeAddCode(){
 $flag = true;
     
 while($flag == true){
+
+   try{ 
+   
+    global dbConn;
+    
+    $dbConn->beginTransaction();
     
     $theAddcode = makeAddCode();
     $usedAddCodes = checkDataBase();
     
     if(!in_array($theAddcode, $usedAddCodes))
     {
-       try{
-           $sql = "INSERT INTO addcode(addCode, classId)
-    		VALUES(:addCode, :classId);
-			";
+       $sql = "INSERT INTO addcode(addCode, classId)
+               VALUES(:addCode, :classId);
+			  ";
     
-           $namedParameters = array();
-           $namedParameters[':addCode'] = $theAddcode;
-	       $namedParameters[':classId'] = $_SESSION['classId'];
+       $namedParameters = array();
+       $namedParameters[':addCode'] = $theAddcode;
+	   $namedParameters[':classId'] = $_SESSION['classId'];
       
-           $dbConn = getDatabaseConnection();	
-           $statement = $dbConn->prepare($sql);
-           $statement->execute($namedParameters);
+       $dbConn = getDatabaseConnection();	
+       $statement = $dbConn->prepare($sql);
+       $statement->execute($namedParameters);
     	
-	     //  header('Location: teacherHome.php');
-         
-         $flag = false;
-           
+       $flag = false;
+          
+       $dbConn->commit();
+
+       // header('Location: teacherHome.php');         
        } catch(\PDOException $e){
+           
+           $dbConn->rollBack();
+           
            if ($e->errorInfo[1] == 1062) {
               //The INSERT query failed due to a key constraint violation.
               echo "Error, Please try to generate add code again!"; 

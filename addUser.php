@@ -2,6 +2,7 @@
 
 session_start();	
 include 'includes/database.inc.php';
+include './functions_utills.php';
 
 if (isset($_POST['addForm'])) {  //admin submitted form to add user
 
@@ -83,6 +84,7 @@ integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En
 <!-- Latest compiled and minified JavaScript -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" 
 integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+<link href='https://fonts.googleapis.com/css?family=Shadows+Into+Light|Bangers|Bitter:400,700' rel='stylesheet' type='text/css'>
 
 <link rel="stylesheet" type="text/css" href="css/styles.css">
     <script>
@@ -236,41 +238,37 @@ integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7
   <div class="container">
     <header>
        <div class="row">
-          <div class="col-sm-12 white-background">
+          <div class="col-sm-12">
              <h1>SIGN UP</h1>
              <br />
           </div>
        </div>
     </header>
     <br />
-    <div id="row">
-      
+    <div id="row" class="form-group">
       <form method="post" onsubmit="return validate()" >
-      	<div class="col-md-6">
-      	   <p>First Name:</p> <input type="text" name="fName" required /> <br />
-      	   <p>Last Name:</p> <input type="text" name="lName" required /> <br />
-      	   <p>Email:</p> <input type="text" name="email" id="email"><span id="emailError"></span><br /><br />
-      	   <p>Username:</p> <input type="text" name="username" id="username"><span id="usernameError"></span><br />
-		</div>
-        <div class="col-md-6">
-           <p>Password:</p> <input type="password" id="password" name="password" required /><span id="passwordError"></span><br />
-		   <p>School Name:</p> <input type="text" name="schoolName" required /> <br />
-      	
+      	<div class="col-md-4">
+      	   <p>First Name:</p> <input type="text" class="form-control" name="fName" required /> <br />
+      	   <p>Last Name:</p> <input type="text" class="form-control" name="lName" required /> <br />
+      	   <p>Username:</p> <input type="text" class="form-control" name="username" id="username"><span id="usernameError"></span><br />
+		   <input type="submit" name="addForm" id="signup-btn" class="btn btn-default btn-md btn-primary top-button-padding" value="Sign Up!"  />
+        </div>
+        <div class="col-md-4">
+        </div>
+        <div class="col-md-4">
+           <p>Email:</p> <input type="text" class="form-control" name="email" id="email"><span id="emailError"></span><br /><br />
+           <p>Password:</p> <input type="password" id="password" class="form-control" name="password" required /><span id="passwordError"></span><br />
+		   <p>School Name:</p> <input type="text" class="form-control" name="schoolName" required /> <br />
       	   <p>User type:<p/> <select name="userType">
       		                    <option value="student">Student</option>
       		                    <option value="teacher">Teacher</option>
       	                     </select>
         </div>       
-      	<input type="submit" name="addForm" id="signup-btn" class="btn btn-default btn-md btn-primary top-button-padding" value="Sign Up!"  />
       </form>
     </div>
         <div class="row">
            <div class="col-md-12">
-              <footer id="footer">
-	             <hr />
-	             <p> the information included on this page may not be correct &copy; SpoutTech 2015</p>
-		         <img src="../img/logoSproutBottom.png" alt="Sprout logo" />
-	          </footer>
+              <?=theFooter(true)?>
            </div>
         </div>
   </div>

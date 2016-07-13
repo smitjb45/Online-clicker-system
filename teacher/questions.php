@@ -1,6 +1,7 @@
 <?php
 session_start();
 include '../includes/database.inc.php';
+include '../functions_utills.php'; 
 
 $dbConn = getDatabaseConnection(); //gets database connection
 
@@ -52,7 +53,7 @@ $sql = "SELECT addCode FROM addCode
 	
 	//print_r($records);
 
-  return $records[0]['addCode'];
+    return $records[0]['addCode'];
 }
 
 ?>
@@ -111,11 +112,10 @@ integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7
     <header>
     <div class="row">
        <div class="col-md-12 white-background">
-      <h1> Lecture</h1>
-      <br />
+         <h1> Lecture</h1>
+         <br />
       </div> 
-      </div>
-     
+  </div>
     </header>
     <br />
     <div class="row">
@@ -124,8 +124,7 @@ integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7
              <strong><h3> Welcome <?=$_SESSION['fName']?>! <h3></strong>
              <form action="teacherHome.php">
                 <input type="submit" id="logout-button" class="btn btn-default btn-md btn-primary" value="Back to Classes" />	
-             </form>
-             
+             </form>         
           </div>          
        </div>
        <div class="col-md-2 top-button-padding">
@@ -148,23 +147,22 @@ integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7
     </div>
     <div class="row">
        <div class="col-md-6 top-button-padding">
-       
-       </div>
+    </div>
        <div class="col-md-6 top-button-padding">
           
        </div>
     </div>
     <div>
-    <hr />
-	 
-     <br /><br />	
+       <hr />
+	   <br />
+       <br />	
     </div>
 	<div class="row">
        <div class="col-md-1">
-       </div>
-       <div class="col-md-4">
-	   <?php
-			$records = displayLectures();
+    </div>
+    <div class="col-md-4">
+	<?php
+	   $records = displayLectures();
 	   echo "<table class='table-bordered'>";
 	   foreach ($records as $record) {
 		   echo "<tr>";
@@ -195,13 +193,7 @@ integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7
     <div class="col-md-3">
     </div>
     </div>
-    <footer id="footer">
-			<hr />
-			<p> the information included on this page may not be correct, it was created in CST336 &copy; Joshua Smith 2015</p>
-			
-			<img class="image-with border" src="../../img/csumb-logo.png" alt="csumb logo" />
-			
-		</footer>
+    <?=theFooter();?>
   </div>
 </body>
 </html>

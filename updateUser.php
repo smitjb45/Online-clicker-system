@@ -1,7 +1,8 @@
 <?php
 session_start();
 include 'includes/database.inc.php';
- $dbConn = getDatabaseConnection();
+include 'functions_utills.php'; 
+$dbConn = getDatabaseConnection();
  
 		
  function getUserInfo(){
@@ -27,7 +28,9 @@ if (isset($_GET['updateForm'])) {  //admin submitted the Update Form
 	}
 	else{
 	
-	$sql = "UPDATE user
+    try{
+        
+	   $sql = "UPDATE user
 	       
 			SET fName = :fName,
 			lName = :lName,
@@ -37,25 +40,29 @@ if (isset($_GET['updateForm'])) {  //admin submitted the Update Form
 			schoolName = :schoolName
 			WHERE userId = :userId";
 			
-	$_SESSION['username'] = $_GET['username'];
-	$_SESSION['fName'] = $_GET['fName'];
+	   $_SESSION['username'] = $_GET['username'];
+	   $_SESSION['fName'] = $_GET['fName'];
 		
-	$namedParameters = array();
-	$namedParameters[':userId'] = $_SESSION['userId'];
-	$namedParameters[':fName'] = $_GET['fName'];
-    $namedParameters[':lName'] = $_GET['lName'];
-	$namedParameters[':username'] = $_GET['username'];
-    $namedParameters[':email'] = $_GET['email'];
-	$namedParameters[':password'] = sha1($_GET['password']);
-	$namedParameters[':schoolName'] = strtoupper($_GET['schoolName']);
+	   $namedParameters = array();
+	   $namedParameters[':userId'] = $_SESSION['userId'];
+	   $namedParameters[':fName']  = strtoupper($_GET['fName']);
+       $namedParameters[':lName'] = strtoupper($_GET['lName']);
+	   $namedParameters[':username'] = $_GET['username'];
+       $namedParameters[':email'] = strtoupper($_GET['email']);
+       $namedParameters[':password'] = sha1($_GET['password']);
+	   $namedParameters[':schoolName'] = strtoupper($_GET['schoolName']);
       
+       $dbConn = getDatabaseConnection();
+       $dbConn->beginTransaction();	
+       $statement = $dbConn->prepare($sql);
+       $statement->execute($namedParameters);	
+       $dbConn->commit();  	
+       
+    }catch(\PDOException $e){
+       $dbConn->rollBack();
+       echo $e->errorInfo[1];
+    }
 
-    $dbConn = getDatabaseConnection();	
-    $statement = $dbConn->prepare($sql);
-    $statement->execute($namedParameters);	
-  	
-
-    	
 	if(strcmp($_GET['userType'], "student") == 0){
          header('Location: student/studentHome.php');
 	}
@@ -64,11 +71,12 @@ if (isset($_GET['updateForm'])) {  //admin submitted the Update Form
 	}
 	else{
 	   session_start();
-            session_destroy();
-            header('Location: index.php');
-            exit;	
+       session_destroy();
+       header('Location: index.php');
+       exit;	
 	}
-	}
+
+}
 }
 
 
@@ -117,6 +125,8 @@ integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En
 integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
 
 <link rel="stylesheet" type="text/css" href="css/styles.css">
+<link href='https://fonts.googleapis.com/css?family=Shadows+Into+Light|Bangers|Bitter:400,700' rel='stylesheet' type='text/css'>
+
   
   
     <script>
@@ -202,6 +212,7 @@ integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7
     <header>
 	   <div class="col-sm-12 white-background">
            <h1>Update Information</h1>
+           <hr />
 	   </div>
     </header>
    
@@ -233,12 +244,7 @@ integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7
       </div>  	
     </form>
     </div>
+          <?= theFooter(); ?>
 	  </div>
-       <footer id="footer">
-	      <hr />
-	      <p> the information included on this page may not be correct &copy; SpoutTech 2015</p>
-		  <img class="img-responsive" src="../img/logoSproutBottom.png" alt="Sprout logo" />
-	   </footer>
-
 </body>
 </html>

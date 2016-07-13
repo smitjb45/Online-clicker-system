@@ -2,18 +2,18 @@
 <?php
 session_start();
 include '../includes/database.inc.php';
- $dbConn = getDatabaseConnection();
+include '../functions_utills.php';
+
+$dbConn = getDatabaseConnection();
  
- if(strcmp($_SESSION['userType'], "student") == 0){
+if(strcmp($_SESSION['userType'], "student") == 0){
 		
 		session_start();
         session_destroy();
         header('Location: ../index.php');
         exit;	
-	}
+}
     
-	
-
 if (isset($_GET['Form'])) {  //admin submitted the Update Form
 	
 	$sql = "INSERT INTO classes(className, teacherId)
@@ -28,10 +28,8 @@ if (isset($_GET['Form'])) {  //admin submitted the Update Form
     $statement = $dbConn->prepare($sql);
     $statement->execute($namedParameters);
     	
-	header('Location: teacherHome.php');
-	
+	header('Location: teacherHome.php');	
 }
-
 
 ?>
 
@@ -46,8 +44,7 @@ if (isset($_GET['Form'])) {  //admin submitted the Update Form
 
   <title>Create Class</title>
   <meta name="description" content="">
-  <meta name="author" content="smit9960">
-
+  <meta name="author" content="smit9960"
   <meta name="viewport" content="width=device-width; initial-scale=1.0">
 
   <!-- Replace favicon.ico & apple-touch-icon.png in the root of your domain and delete these references -->
@@ -76,50 +73,41 @@ integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" 
 integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
 
+<link href='https://fonts.googleapis.com/css?family=Shadows+Into+Light|Bangers|Bitter:400,700' rel='stylesheet' type='text/css'>
 <link rel="stylesheet" type="text/css" href="../css/styles.css">
 <link rel="stylesheet" href="../textEdit/css/widgEditor.css" />
-   <script src="../textEdit/scripts/widgEditor.js"></script>
+<script src="../textEdit/scripts/widgEditor.js"></script>
 </head>
 
 <body>
   <div>
     <header>
       <h1>Create Class</h1>
-      
-      <hr />
     </header>
     <div class="container">
-    
-          <div id="login-wrapper">
-      
-      <form>
-      </div>	
-		<div class="row">
+       <hr />
+       <div id="login-wrapper">
+          <form>
+       </div>	
+		 <div class="row">
            <div class="col-md-12">
-		      <p>Class Name:</p><input type="text" name="className" required/> <br />
+		      <p>Class Name:</p><input type="text" class="form-control" name="className" required/> <br />
 		   </div>
         </div>
         <div class="row">
            <div class="col-md-6">
-         
-      	   </div>
+      	</div>
            <div class="col-md-6">   
            
            </div>
         </div>
       	<br />          
       	<br />          
-
       	<input type="submit" class="btn btn-default btn-md btn-primary" value="Create Class" name="Form" />
       </form>
-      </div>  
+      <?=theFooter()?>
+      </div>      
     </div>
-    <footer id="footer">
-			<hr />
-			<p> the information included on this page may not be correct, it was created in CST336 &copy; Joshua Smith 2015</p>
-			<img class="image-with border" src="../../img/csumb-logo.png" alt="csumb logo" />
-			
-		</footer>
   </div>
 </body>
 </html>

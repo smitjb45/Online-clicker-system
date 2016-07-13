@@ -2,6 +2,7 @@
 <?php
 session_start();
 include '../includes/database.inc.php';
+include '../functions_utills.php';
  $dbConn = getDatabaseConnection();
  
  if(strcmp($_SESSION['userType'], "student") == 0){
@@ -96,33 +97,34 @@ integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En
 <!-- Latest compiled and minified JavaScript -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" 
 integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+<link href='https://fonts.googleapis.com/css?family=Shadows+Into+Light|Bangers|Bitter:400,700' rel='stylesheet' type='text/css'>
 
 <link rel="stylesheet" type="text/css" href="../css/styles.css">
-<link rel="stylesheet" href="../textEdit/css/widgEditor.css" />
-   <script src="../textEdit/scripts/widgEditor.js"></script>
+
 </head>
 
 <body>
   <div>
     <header>
       <h1>Create Question</h1>
-      
-      <hr />
     </header>
-    <div class="container">
+    <div class="container form-group">
+    <hr />
     	<?$theUserInfo = getUserInfo()?>
           <div id="login-wrapper">
       
       <form>
       </div>	
 		<div class="row">
-           <div class="col-md-12">
-		      <p>Question Order:</p><input type="text" name="questionOrder" required/> <br />
+           <div class="col-md-4">
+		      <p>Question Order:</p><input type="text" class="form-control" name="questionOrder" required/> <br />
+		   </div>
+           <div class="col-md-8">
 		   </div>
         </div>
         <div class="row">
            <div class="col-md-6">
-              <p>Question:</p> <textarea rows="20" cols="40" name="question"  required></textarea><br /><br />
+              <p>Question:</p> <textarea rows="20" cols="40" class="form-control" name="question"  required></textarea><br /><br />
       	   </div>
            <div class="col-md-6">   
            
@@ -134,14 +136,9 @@ integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7
 		<input type="hidden" name="lectureId" value="<?=$_GET['lectureId']?>" />
       	<input type="submit" class="btn btn-default btn-md btn-primary" value="Create Question" name="Form" />
       </form>
-      </div>  
+          <?=theFooter(false)?>
+      </div>      
     </div>
-    <footer id="footer">
-			<hr />
-			<p> the information included on this page may not be correct, it was created in CST336 &copy; Joshua Smith 2015</p>
-			<img class="image-with border" src="../../img/csumb-logo.png" alt="csumb logo" />
-			
-		</footer>
   </div>
 </body>
 </html>

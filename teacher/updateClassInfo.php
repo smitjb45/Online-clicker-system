@@ -2,6 +2,7 @@
 <?php
 session_start();
 include '../includes/database.inc.php';
+include '../functions_utills.php'; 
  $dbConn = getDatabaseConnection();
  
  if(strcmp($_SESSION['userType'], "student") == 0){
@@ -93,6 +94,7 @@ integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En
 <!-- Latest compiled and minified JavaScript -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" 
 integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+<link href='https://fonts.googleapis.com/css?family=Shadows+Into+Light|Bangers|Bitter:400,700' rel='stylesheet' type='text/css'>
 
 <link rel="stylesheet" type="text/css" href="../css/styles.css">
 </head>
@@ -100,16 +102,17 @@ integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7
 <body>
   <div class="container">
     <header>
-       <div class="col-sm-12 white-background">
+       <div class="col-sm-12">
            <h1>Update Information</h1>
 	   </div>
     </header>
-    <div>
+    <div class="row">
     	<?$theUserInfo = getUserInfo()?>
       
-      <form>
+      <div class="col-sm-4">
+      <form class="form-horizontal">
 		<br />
-		<p>Class Name:</p> <input type="text" name="className" value="<?=$theUserInfo['className']?>" required/> <br />
+		<p>Class Name:</p> <input type="text" class="form-control" name="className" value="<?=$theUserInfo['className']?>" required/> <br />
       	<br />
 		<input type="hidden" name="startDate" value="<?=$theUserInfo['startDate']?>" required/> <br />
       	</div>
@@ -117,15 +120,13 @@ integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7
       	<br />          
       	<br />          
       	<input type="hidden" name="classId" value="<?=$_GET['classId']?>" />
-      	<input type="submit" class="btn btn-default btn-lg btn-primary" value="Update
-        " name="updateForm" />
+      	<input type="submit" class="btn btn-default btn-lg btn-primary margin-top" value="Update" name="updateForm" />
       </form>
+      </div>
+      <div class="col-sm-8">
+      </div>
     </div>
-       <footer id="footer">
-	      <hr />
-	      <p> the information included on this page may not be correct &copy; SpoutTech 2015</p>
-		  <img  src="../img/logoSproutBottom.png" alt="Sprout logo" />
-	   </footer>
+       <?=theFooter(false)?>
   </div>
 </body>
 </html>

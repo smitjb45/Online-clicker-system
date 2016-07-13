@@ -1,6 +1,7 @@
 <?php
 session_start();
 include '../includes/database.inc.php';
+include '../functions_utills.php'; 
 
 $dbConn = getDatabaseConnection(); //gets database connection
 
@@ -30,27 +31,34 @@ $sql = "SELECT * FROM classes
 	foreach ($records as $record) {
 		echo "<tr>";
 		echo "<td>";
-		echo "<h5>Class Name:&nbsp;</h5>";
+		echo "<h5 class='word-padding'>Class Name:</h5>";
 		echo "<td/>";
 		echo "<td>";
-	    echo "<h5>{$record['className']}&nbsp;</h5>"; 
+	    echo "<h5 class='word-padding'>{$record['className']}</h5>"; 
 		echo "<td/>";
 		echo "<td>";
-		echo "<h5>School:&nbsp;</h5>";
+		echo "<h5 class='word-padding'>School:</h5>";
 		echo "<td>";
-		echo "<h5>{$record['schoolName']}&nbsp;</h5>";
+		echo "<h5 class='word-padding'>{$record['schoolName']}</h5>";
 		echo "<td/>";
 		echo "<td>";
-		echo "<a href='questions.php?classId= {$record['classId']}'>&nbsp;<span class='glyphicon glyphicon-folder-open'>&nbsp;</span></a>";
+		echo "<a href='questions.php?classId= {$record['classId']}'>
+                 <span class='glyphicon glyphicon-folder-open icon-padding'></span></a>";
 		echo "<td/>";
 		echo "<td>";
-		echo "<a href='updateClassInfo.php?classId= {$record['classId']}'>&nbsp;<span class='glyphicon glyphicon-list-alt'>&nbsp;</span></a>";
+		echo "<a href='updateClassInfo.php?classId= {$record['classId']}'>
+                 <span class='glyphicon glyphicon-list-alt icon-padding'>&nbsp;</span>
+             </a>";
 		echo "<td/>";
 		echo "<td>";
-		echo "<a href='stats.php?classId= {$record['classId']}'>&nbsp;<span class='glyphicon glyphicon-stats'>&nbsp;</span></a>";
+		echo "<a href='stats.php?classId= {$record['classId']}'>
+                 <span class='glyphicon glyphicon-stats icon-padding'></span>
+              </a>";
 		echo "<td/>";
 		echo "<td>";
-		echo "<a href='deleteClass.php?classId= {$record['classId']}'>&nbsp;<span class='glyphicon glyphicon-trash'>&nbsp;</span></a>";
+		echo "<a href='deleteClass.php?classId= {$record['classId']}'>
+                 <span class='glyphicon glyphicon-trash icon-padding'></span>
+              </a>";
 		echo "</td>";
 	    echo "</tr>";
 	}
@@ -77,24 +85,30 @@ $sql = "SELECT * FROM endedClasses
 	foreach ($records as $record) {
 		echo "<tr>";
 		echo "<td>";
-		echo "<h5>Class Name:&nbsp;</h5>";
+		echo "<h5 class='word-padding'>Class Name:</h5>";
 		echo "<td/>";
 		echo "<td>";
-		echo "<h5>{$record['className']}&nbsp;</h5> "; 
+		echo "<h5 class='word-padding'>{$record['className']}</h5> "; 
 		echo "<td/>";
 		echo "<td>";
-		echo "<h5>School:&nbsp;</h5>";
+		echo "<h5 class='word-padding'>School:</h5>";
 		echo "<td>";
-		echo "<h5>{$record['schoolName']}&nbsp;</h5>";
+		echo "<h5 class='word-padding'>{$record['schoolName']}</h5>";
 		echo "<td/>";
 		echo "<td>";
-		echo "<a href='questions.php?classId= {$record['classId']}'>&nbsp;<span class='glyphicon glyphicon-folder-open'>&nbsp;</span></a>";
+		echo "<a href='questions.php?classId= {$record['classId']}'>
+                 <span class='glyphicon glyphicon-folder-open icon-padding'></span>
+              </a>";
 		echo "<td/>";
 		echo "<td>";
-		echo "<a href='stats.php?classId= {$record['classId']}'>&nbsp;<span class='glyphicon glyphicon-stats'>&nbsp;</span></a>";
+		echo "<a href='stats.php?classId= {$record['classId']}'>
+                 <span class='glyphicon glyphicon-stats icon-padding icon-padding'></span>
+              </a>";
 		echo "<td/>";
 		echo "<td>";
-		echo "<a href='restart.php?classId= {$record['classId']}'>&nbsp;<span class='glyphicon glyphicon-retweet'>&nbsp;</span></a>";
+		echo "<a href='restart.php?classId= {$record['classId']}'>
+                 <span class='glyphicon glyphicon-retweet icon-padding'></span>
+              </a>";
 		echo "</td>";
 	    echo "</tr>";
 	}
@@ -145,6 +159,7 @@ integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En
 <!-- Latest compiled and minified JavaScript -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" 
 integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+<link href='https://fonts.googleapis.com/css?family=Shadows+Into+Light|Bangers|Bitter:400,700' rel='stylesheet' type='text/css'>
 
 <link rel="stylesheet" type="text/css" href="../css/styles.css">
 
@@ -159,13 +174,11 @@ integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7
 <body>
   <div class="container">
     <header>
-	<div class="row white-background">
+	<div class="row margin-top">
       <h1>Teacher Homepage</h1>
       <br />
     </div>
     </header>
-
-   
     <div class="row">
 	<div class="col-sm-6">
        <strong><h3> Welcome <?=$_SESSION['fName']?>! <h3></strong>

@@ -6,13 +6,18 @@ function getDatabaseConnection() {
 	$username = "root"; 	//your otterid
 	$password = "mysql";
 
-	//creates connection to database
-	$dbConn = new PDO("mysql:host=$host;dbname=$dbname", $username, $password);
+    try {
+	   //creates connection to database
+	   $dbConn = new PDO("mysql:host=$host;dbname=$dbname", $username, $password);
 
-	// Setting Errorhandling to Exception
-	$dbConn -> setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+	   // Setting Errorhandling to Exception
+	   $dbConn -> setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-	return $dbConn;
+	   return $dbConn;
+    
+    }catch(Exception $e){
+       die("Unable to connect: " . $e->getMessage());
+    }
 }
 
 function getDataBySQL($sql){
