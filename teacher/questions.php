@@ -46,7 +46,7 @@ function getAddCode(){
 	global $dbConn;
 	
 
-$sql = "SELECT addCode FROM addCode	
+$sql = "SELECT addCode FROM addCodes	
 		WHERE classId = {$_SESSION['classId']}";
 
 	$records = getDataBySQL($sql);
@@ -102,6 +102,7 @@ integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En
 <!-- Latest compiled and minified JavaScript -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" 
 integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+<link href='https://fonts.googleapis.com/css?family=Shadows+Into+Light|Bangers|Bitter:400,700' rel='stylesheet' type='text/css'>
 
 <link rel="stylesheet" type="text/css" href="../css/styles.css">
   
@@ -121,7 +122,6 @@ integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7
     <div class="row">
        <div class="col-md-6">
           <div class="col-md-6 top-button-padding">
-             <strong><h3> Welcome <?=$_SESSION['fName']?>! <h3></strong>
              <form action="teacherHome.php">
                 <input type="submit" id="logout-button" class="btn btn-default btn-md btn-primary" value="Back to Classes" />	
              </form>         
@@ -132,12 +132,23 @@ integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7
 	         <input type="hidden" name="classId" value="<?=$_GET['classId']?>" />
              <input type="submit" id="addLecture" class="btn btn-default btn-md btn-primary" value="Add Lecture" name="addLecture" />	
           </form>
-          <?php echo "<b class='col-md-2 top-button-padding' >" . getAddCode() . "</b>"; ?> 
+          <?php echo "<b class='col-md-2 top-button-padding add-code' >Code:" . getAddCode() . "</b>"; ?> 
        </div>
        <div class="col-md-2 top-button-padding">
-          <form action="addCodeGenerator.php?classId="<?=$_GET['classId']?>"">
-             <input type="submit" id="logout-button" class="btn btn-default btn-md btn-primary" value="Get Add Code" />	
-          </form>
+          
+          <?php
+              if(getAddCode() == null){
+                 echo '<form action="addCodeGenerator.php">';
+                    echo '<input type="submit" id="logout-button" class="btn btn-default btn-md btn-primary" value="Get Add Code" />';     
+                 echo '</form>';
+              }
+              else{
+                 
+                  echo '<form action="deleteAddCode.php">';
+                  echo '<input type="submit" id="logout-button" class="btn btn-default btn-md btn-primary" value="Delete Add Code" />';     
+                  echo '</form>';
+              }
+          ?>
        </div>
        <div class="col-md-2 top-button-padding">
           <form action="../logout.php">
@@ -173,12 +184,12 @@ integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7
 		   echo "</td>";
 		   echo "<td>";
 	       echo "<a href='getQuestions.php?lectureId= {$record['lectureId']}' target ='getQuestionIframe'>
-                    <span class='glyphicon glyphicon-folder-open icon-padding'></span>
+                    <span class='glyphicon glyphicon-folder-open icon-padding'><span class='icon-word-padding'>Questions</span></span>
                 </a>";
 		   echo "</td>";
 		   echo "<td>";
 		   echo "<a href='createQuestion.php?lectureId= {$record['lectureId']}'>
-                    <span class='glyphicon glyphicon-plus-sign icon-padding'></span>
+                    <span class='glyphicon glyphicon-plus-sign icon-padding'><span class='icon-word-padding'>Add</span></span>
                  </a>";
 		   echo "</td>";
 		   echo "</tr>";
@@ -187,13 +198,13 @@ integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7
 	   ?>
 	</div>
 	<div class="col-md-4">
-	   <iframe id="iframe" src="getQuestions.php" name="getQuestionIframe" width="500" height="500" frameborder="0">
+	   <iframe id="iframe" src="getQuestions.php" name="getQuestionIframe" width="510" height="500" frameborder="0">
        </iframe>
 	</div>
     <div class="col-md-3">
     </div>
     </div>
-    <?=theFooter();?>
+    <?=theFooter(false);?>
   </div>
 </body>
 </html>

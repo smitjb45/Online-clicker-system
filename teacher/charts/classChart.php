@@ -3,30 +3,28 @@
    include '../../includes/database.inc.php'; 
    $dbConn = getDatabaseConnection();
    
-    function getChartData(){
+
+   function getChartData(){
         
    global $dbConn; 
 	
-	
-	
-    $sql = "SELECT studentAnswer, COUNT(studentAnswer) FROM studentAnswers 
+    $sql = "SELECT studentAnswer, COUNT(studentAnswer)
+            FROM studentAnswers 
             WHERE questionId = " . $_GET["questionId"] . "
             GROUP BY studentAnswer";
         
 	$records = getDataBySQL($sql);
 	
-    //print_r($records);
+//    print_r($records);
 	
     return $records;
 }
-print_r($_GET["questionId"]);
+//print_r($_GET["questionId"]);
 
 function getChartDataCorrect(){
         
-   global $dbConn; 
-	
-	
-	
+    global $dbConn; 
+
     $sql = "SELECT correct, COUNT(correct) FROM studentAnswers 
             WHERE questionId = " . $_SESSION["questionId"] . "
             GROUP BY studentAnswer";
@@ -38,20 +36,17 @@ function getChartDataCorrect(){
     return $records;
 }
 
-function getChartDataSex(){
+function getChartCorrectAnswer(){
         
    global $dbConn; 
 	
-	
-	
-    $sql = "SELECT sex, COUNT(correct) FROM studentAnswers
-            LEFT JOIN user ON user.userId = studentAnswers.studentId    
-            WHERE questionId = " . $_SESSION["questionId"] . "
-            GROUP BY sex";
+    $sql = "SELECT * FROM answers   
+            WHERE questionId = " . $_GET["questionId"] . " 
+            AND correct = 'Y'";
         
 	$records = getDataBySQL($sql);
 	
-    print_r($records);
+ //   print_r($records);
 	
     return $records;
 }
@@ -65,7 +60,7 @@ function getChartDataSex(){
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-    <title>SproutTech</title>
+    <title>dodoboost</title>
     
 	<script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
     
@@ -91,7 +86,7 @@ integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En
 <!-- Latest compiled and minified JavaScript -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" 
 integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
-
+<link href="../../bootstrap-3.3.6-dist/css/bootstrap.min.css" rel="stylesheet">
 <link rel="stylesheet" type="text/css" href="../../css/styles.css">
 
 <script src="../../Chart.js-master/Chart.js"></script>
@@ -140,24 +135,21 @@ integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7
   <body>
   
     <div class="container">
-       <div class="col-sm-12 white-background">
-          <h1>Welcome to Sprout</h1>
-          <br />
-	   </div>
+       <div class="row">
+          <div class="col-sm-4 margin-top">
+          </div>
+          <div class="col-sm-4 margin-top">
+             <span class="chart-answer">Correct Answer: <?=getChartCorrectAnswer()[0]["answer"];?> </span>
+             <span class="chart-answer">Correct Option: <?=getChartCorrectAnswer()[0]["letter"];?> </span>
+	      </div>
+       </div>
      <div>
        <canvas id="myChart" class="white-background" width="200" height="100"></canvas>
-    </div>
-     
-		
+    </div>	
     </div>
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="js/bootstrap.min.js"></script>
   </body>
-       <footer id="footer">
-	      <hr />
-	      <p> the information included on this page may not be correct &copy; SpoutTech 2015</p>
-		  <img src="../img/logoSproutBottom.png" alt="Sprout logo" />
-	   </footer>
 </html>

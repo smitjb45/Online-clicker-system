@@ -43,21 +43,21 @@ $sql = "SELECT * FROM classes
 		echo "<td/>";
 		echo "<td>";
 		echo "<a href='questions.php?classId= {$record['classId']}'>
-                 <span class='glyphicon glyphicon-folder-open icon-padding'></span></a>";
+                 <span class='glyphicon glyphicon-folder-open icon-padding'><span class='icon-word-padding'>Lecture</span></span></a>";
 		echo "<td/>";
 		echo "<td>";
 		echo "<a href='updateClassInfo.php?classId= {$record['classId']}'>
-                 <span class='glyphicon glyphicon-list-alt icon-padding'>&nbsp;</span>
+                 <span class='glyphicon glyphicon-list-alt icon-padding'><span class='icon-word-padding'>Update</span></span>
              </a>";
 		echo "<td/>";
 		echo "<td>";
 		echo "<a href='stats.php?classId= {$record['classId']}'>
-                 <span class='glyphicon glyphicon-stats icon-padding'></span>
+                 <span class='glyphicon glyphicon-stats icon-padding'><span class='icon-word-padding'>Stats</span></span>
               </a>";
 		echo "<td/>";
 		echo "<td>";
 		echo "<a href='deleteClass.php?classId= {$record['classId']}'>
-                 <span class='glyphicon glyphicon-trash icon-padding'></span>
+                 <span class='glyphicon glyphicon-trash icon-padding'><span class='icon-word-padding'>End</span></span>
               </a>";
 		echo "</td>";
 	    echo "</tr>";
@@ -97,17 +97,17 @@ $sql = "SELECT * FROM endedClasses
 		echo "<td/>";
 		echo "<td>";
 		echo "<a href='questions.php?classId= {$record['classId']}'>
-                 <span class='glyphicon glyphicon-folder-open icon-padding'></span>
+                 <span class='glyphicon glyphicon-folder-open icon-padding'><span class='icon-word-padding'>Lectures</span></span>
               </a>";
 		echo "<td/>";
 		echo "<td>";
 		echo "<a href='stats.php?classId= {$record['classId']}'>
-                 <span class='glyphicon glyphicon-stats icon-padding icon-padding'></span>
+                 <span class='glyphicon glyphicon-stats icon-padding icon-padding'><span class='icon-word-padding'>Stats</span></span>
               </a>";
 		echo "<td/>";
 		echo "<td>";
 		echo "<a href='restart.php?classId= {$record['classId']}'>
-                 <span class='glyphicon glyphicon-retweet icon-padding'></span>
+                 <span class='glyphicon glyphicon-retweet icon-padding'><span class='icon-word-padding'>Restart</span></span>
               </a>";
 		echo "</td>";
 	    echo "</tr>";
@@ -203,15 +203,15 @@ integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7
 	   <div class="col-md-6">
 	      <?= displayClasses()?>
 	   </div>
-	   <div class="col-md-6">
+       
+       <div class="col-md-1">
+	   </div>
+	   
+       <div class="col-md-5">
 	      <?=displayClassesEnded()?>
 	   </div>
     </div>
-       <footer id="footer">
-	      <hr />
-	      <p> the information included on this page may not be correct &copy; SpoutTech 2015</p>
-		  <img src="../img/logoSproutBottom.png" alt="Sprout logo" />
-	   </footer>
+<?=theFooter(false)?>
   </div>
 </body>
 </html>

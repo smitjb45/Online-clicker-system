@@ -49,6 +49,18 @@ p{
     font-size: 1.5em;
 }
 
+.add-code{
+    font-size: 3em;
+    margin-left: 40px;
+    border: 5px solid Black;
+}
+
+.chart-answer{
+   font-size: 2.5em;
+   text-align: center;
+   
+}
+
 .hideQuestion{
     display: none;
 }
@@ -62,6 +74,10 @@ p{
 .icon-padding{
     
     padding: 15px 15px 15px 15px;
+}
+
+.icon-word-padding{
+   padding-left: 4px;    
 }
 
 .word-padding{
@@ -95,8 +111,8 @@ p{
 	color: white;
 }
 #footer img{
-   width: 5%;
-   height: 5%;
+   width: 7%;
+   height: 7%;
 }
 
 div.tooltip-inner {

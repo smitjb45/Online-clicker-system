@@ -16,12 +16,13 @@ if(strcmp($_SESSION['userType'], "student") == 0){
     
 if (isset($_GET['Form'])) {  //admin submitted the Update Form
 	
-	$sql = "INSERT INTO classes(className, teacherId)
-    		VALUES(:className, :teacherId);
+	$sql = "INSERT INTO classes(className, teacherId, schoolName)
+    		VALUES(:className, :teacherId, :schoolName);
 			";
     
     $namedParameters = array();
     $namedParameters[':className'] = $_GET['className'];
+    $namedParameters[':schoolName'] = strtoupper($_GET['schoolName']);
 	$namedParameters[':teacherId'] = $_SESSION['userId'];
       
     $dbConn = getDatabaseConnection();	
@@ -90,8 +91,12 @@ integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7
           <form>
        </div>	
 		 <div class="row">
-           <div class="col-md-12">
+         
+           <div class="col-md-6">
 		      <p>Class Name:</p><input type="text" class="form-control" name="className" required/> <br />
+		   </div>
+           <div class="col-md-6">
+		      <p>School Name:</p><input type="text" class="form-control" name="schoolName" required/> <br />
 		   </div>
         </div>
         <div class="row">
@@ -105,7 +110,11 @@ integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7
       	<br />          
       	<input type="submit" class="btn btn-default btn-md btn-primary" value="Create Class" name="Form" />
       </form>
-      <?=theFooter()?>
+          <div class="row">
+              <div class="col-md-12">
+                  <?=theFooter(false)?>
+              </div>
+          </div>
       </div>      
     </div>
   </div>

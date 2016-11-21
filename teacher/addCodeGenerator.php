@@ -16,10 +16,16 @@ function makeAddCode(){
     $addCodeElements = array("A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M",
                              "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z",
                              "1", "2", "3", "4", "5", "6", "7", "8", "9", "0");
-                             
+           
+    $usedAddCodes = checkDataBase();
     shuffle($addCodeElements);
-    
     $theAddCode = array_slice($addCodeElements, 0, 6);
+    
+    While(in_array($theAddCode, $usedAddCodes)){
+        
+            shuffle($addCodeElements);
+            $theAddCode = array_slice($addCodeElements, 0, 6);
+    }    
     
     return implode($theAddCode);
 }
@@ -29,31 +35,24 @@ function makeAddCode(){
         
     global $dbConn; 
 	
-    $sql = "SELECT addCode FROM addCode";
+    $sql = "SELECT addCode FROM addCodes";
         
 	$records = getDataBySQL($sql);
 	
-    print_r($records);
+ //   print_r($records);
 	
     return $records;
 }
     
-$flag = true;
+//$flag = true;
     
-while($flag == true){
+//while($flag == true){
 
    try{ 
-   
-    global dbConn;
-    
-    $dbConn->beginTransaction();
     
     $theAddcode = makeAddCode();
-    $usedAddCodes = checkDataBase();
     
-    if(!in_array($theAddcode, $usedAddCodes))
-    {
-       $sql = "INSERT INTO addcode(addCode, classId)
+       $sql = "INSERT INTO addCodes(addCode, classId)
                VALUES(:addCode, :classId);
 			  ";
     
@@ -64,21 +63,14 @@ while($flag == true){
        $dbConn = getDatabaseConnection();	
        $statement = $dbConn->prepare($sql);
        $statement->execute($namedParameters);
-    	
-       $flag = false;
-          
-       $dbConn->commit();
 
-       // header('Location: teacherHome.php');         
-       } catch(\PDOException $e){
-           
-           $dbConn->rollBack();
+        header('Location: questions.php');         
+       } catch(PDOException $e){
            
            if ($e->errorInfo[1] == 1062) {
               //The INSERT query failed due to a key constraint violation.
               echo "Error, Please try to generate add code again!"; 
            }
-       }
+  //     }
     }	
-}
 ?>

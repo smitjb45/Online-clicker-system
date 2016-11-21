@@ -10,23 +10,49 @@ if (!isset($_SESSION['username'])) {  //checks whether user has logged in
 	
 }
 
+function getAddcodeClassId(){
 
-function displayClasses(){
+
+    return $record;    
+}
+
+function getClassRecords(){
 	
 	global $dbConn;
-	
-
+	$theIds = array();
 $sql = "SELECT * FROM enrolledStudents 
         LEFT JOIN classes ON enrolledStudents.classId = classes.classId
         LEFT JOIN user ON classes.teacherId = user.userId		
 		WHERE enrolledStudents.studentId = {$_SESSION['userId']} AND userType LIKE 'teacher'";
 
 	$records = getDataBySQL($sql);
-		
+	
+//print_r($_SESSION);	
 	//print_r($records);
+   
+  //  echo $records[1]['classId'];    
+    
+    foreach ($records as $record) {
+         $theIds[] = $record['classId'];
+    }
+    return $theIds;
+}
 
-	echo "<table class='table-bordered'>";
-	foreach ($records as $record) {
+function displayClasses(){
+    
+    	global $dbConn;
+	    
+        $theIds = array();
+        
+        $sql = "SELECT * FROM enrolledStudents 
+        LEFT JOIN classes ON enrolledStudents.classId = classes.classId
+        LEFT JOIN user ON classes.teacherId = user.userId		
+		WHERE enrolledStudents.studentId = {$_SESSION['userId']} AND userType LIKE 'teacher'";
+
+	    $records = getDataBySQL($sql);
+    
+    	echo "<table class='table-bordered'>";
+        foreach ($records as $record) {
 		echo "<tr>";
 	    echo "<td>";
 		echo "<h5 class='word-padding'>Teacher:</h5>";
@@ -53,14 +79,51 @@ $sql = "SELECT * FROM enrolledStudents
 		echo " ";
         echo "</td>";
         echo "<td>";
-		echo "<a href='delete.php?employeeId= {$record['classId']}'>
+		echo "<a href='../delete.php?classId= {$record['classId']}'>
                    <span class='glyphicon glyphicon-trash icon-padding'></span>
               </a>";
 		 "<br>";
 		echo "</td>";
 	    echo "</tr>";
 	}
-	echo "</table>";
+	echo "</table>";    
+}
+
+
+//print_r($records);
+if (isset($_GET['addClass'])) {
+	
+    global $dbConn;
+    
+    $sql = "SELECT classId FROM addCodes	
+		    WHERE addCode = :addCode";
+    
+				
+	$namedParameters = array();
+    $namedParameters[':addCode'] = $_GET['addCode'];				
+  			
+	$statement = $dbConn->prepare($sql); 
+	$statement->execute($namedParameters);
+	$record = $statement->fetch(PDO::FETCH_ASSOC);
+    
+    if(!$record == null){
+      //  print_r($record["classId"]);
+        $theRecords = getClassRecords();
+
+        if(!in_array($record["classId"], $theRecords) && isset($record["classId"])){
+
+       $sql1 = "INSERT INTO enrolledStudents(classId, studentId)
+                VALUES(:classId, :studentId);";
+               
+       $namedParameters = array();
+       $namedParameters[':classId'] = $record['classId'];
+       $namedParameters[':studentId'] = $_SESSION['userId'];
+    
+       $statement = $dbConn->prepare($sql1);
+       $statement->execute($namedParameters);
+       }
+          
+    }
 }
 
 ?>
@@ -112,7 +175,6 @@ integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7
 <link href='https://fonts.googleapis.com/css?family=Shadows+Into+Light|Bangers|Bitter:400,700' rel='stylesheet' type='text/css'>
 <link rel="stylesheet" type="text/css" href="../css/styles.css">
 </head>
-
 <body>
   <div class="container">
     <header>
@@ -123,26 +185,43 @@ integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7
           </div>
        </div>
     </header>
-
-   
     <div class="row">
         <div class="col-sm-6">
            <strong><h3> Welcome <?=$_SESSION['fName']?>! <h3></strong>
         </div>
-        <div class="col-sm-4">
+        <div class="col-sm-2">
+        </div>
+        <div class="col-sm-2">
+           <form class="form-inline" method="get">
+              <div >
+				    <input type="text" class="form-control" placeholder="Add Code" name="addCode" required/>
+                    <input type="submit" id="addCode-button" class="btn btn-default btn-sm btn-bloc" value="Add Class" name="addClass" />
+		      </div>	
+           </form>
         </div>
         <div class="col-sm-2 top-button-padding">
            <form action="../logout.php">
               <input type="submit" id="logout-button" class="btn btn-default btn-lg btn-bloc" value="Logout" name="logout" />	
            </form>
         </div>
-        </div>
+    </div>
   
     <hr />	
     <br />
-	<?= displayClasses()?>
-    <?=theFooter(false)?>
-        </div>
+    
+    <div class="row">
+       <div class="col-sm-6 top-button-padding">
+       <?php 
+          displayClasses();
+       ?>
+       </div>
+       <div class="col-sm-6 top-button-padding">
+
+        </div> 
+    </div>
+    <div class="row">
+       <?=theFooter(false)?>
+    </div>
   </div>
 </body>
 </html>

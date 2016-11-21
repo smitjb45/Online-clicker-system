@@ -62,25 +62,29 @@ if (isset($_GET['updateForm'])) {  //admin submitted the Update Form
 			   $sql1 = "UPDATE answers
 		   	   SET questionId = :questionId,
 			   answer = :answerOne,
-		 	   correct = :correct1
+		 	   correct = :correct1,
+               letter = :letterA
 			   WHERE answerId = :answerId1";
 			   
 			   $sql2 = "UPDATE answers
 		   	   SET questionId = :questionId,
 			   answer = :answerTwo,
-		 	   correct = :correct2
+		 	   correct = :correct2,
+               letter = :letterB
 			   WHERE answerId = :answerId2";
 			 
 			   $sql3 = "UPDATE answers
 		   	   SET questionId = :questionId,
 			   answer = :answerThree,
-		 	   correct = :correct3
+		 	   correct = :correct3,
+               letter = :letterC
 			   WHERE answerId = :answerId3";
 			   
 			   $sql4 = "UPDATE answers
 		   	   SET questionId = :questionId,
 			   answer = :answerFour,
-		 	   correct = :correct4
+		 	   correct = :correct4,
+               letter = :letterD
 			   WHERE answerId = :answerId4
 			   ";	   
  
@@ -116,31 +120,34 @@ if (isset($_GET['updateForm'])) {  //admin submitted the Update Form
        $namedParameters[':question'] = $_GET['question'];
 	   $namedParameters[':questionOrder'] = $_GET['questionOrder'];
 	
-	
 	   $namedParameters1 = array();
 	   $namedParameters1[':questionId'] = $_GET['questionId'];
 	   $namedParameters1[':answerOne'] = $_GET['answerOne'];
 	   $namedParameters1[':correct1'] = $answer1;
 	   $namedParameters1[':answerId1'] = $_GET['answerId'];
-	
+	   $namedParameters1[':letterA'] = 'A';
+       
 	   $namedParameters2 = array();
 	   $namedParameters2[':questionId'] = $_GET['questionId'];
 	   $namedParameters2[':answerTwo'] = $_GET['answerTwo'];
 	   $namedParameters2[':correct2'] = $answer2;
 	   $namedParameters2[':answerId2'] = $_GET['answerId1'];
-	
+	   $namedParameters2[':letterB'] = 'B';
+       
 	   $namedParameters3 = array();
 	   $namedParameters3[':questionId'] = $_GET['questionId'];
 	   $namedParameters3[':answerThree'] = $_GET['answerThree'];
 	   $namedParameters3[':correct3'] = $answer3;
 	   $namedParameters3[':answerId3'] = $_GET['answerId2'];
+       $namedParameters3[':letterC'] = 'C';
 	
 	   $namedParameters4 = array();
 	   $namedParameters4[':questionId'] = $_GET['questionId'];
 	   $namedParameters4[':answerFour'] = $_GET['answerFour'];
 	   $namedParameters4[':correct4'] = $answer4;
 	   $namedParameters4[':answerId4'] = $_GET['answerId3'];
-
+       $namedParameters4[':letterD'] = 'D';
+       
        $statement = $dbConn->prepare($sql);
        $statement->execute($namedParameters);
 
@@ -173,17 +180,17 @@ function insertAnswers(){
 			   WHERE questionId = :questionId";
 
 			
-			    $sql1 = "INSERT INTO answers(questionId, answer, correct)
-    		   VALUES(:questionId, :answerOne, :correct1);";
+			    $sql1 = "INSERT INTO answers(questionId, answer, correct, letterA)
+    		   VALUES(:questionId, :answerOne, :correct1, :letterA);";
 			
-			    $sql2 = "INSERT INTO answers(questionId, answer, correct)
-    		   VALUES(:questionId, :answerTwo, :correct2);";
+			    $sql2 = "INSERT INTO answers(questionId, answer, correct, letterB)
+    		   VALUES(:questionId, :answerTwo, :correct2, :letterB);";
 			
-			    $sql3 = "INSERT INTO answers(questionId, answer, correct)
-    		   VALUES(:questionId, :answerThree, :correct3,);";
+			    $sql3 = "INSERT INTO answers(questionId, answer, correct, letterC)
+    		   VALUES(:questionId, :answerThree, :correct3, :letterC);";
 			
-			    $sql4 = "INSERT INTO answers(questionId, answer, correct)
-    		   VALUES(:questionId, :answerFour, :correct4);";
+			    $sql4 = "INSERT INTO answers(questionId, answer, correct, letterD)
+    		   VALUES(:questionId, :answerFour, :correct4, :letterD);";
 	
 			   
  
@@ -219,33 +226,30 @@ function insertAnswers(){
     $namedParameters[':question'] = $_GET['question'];
 	$namedParameters[':questionOrder'] = $_GET['questionOrder'];
 	
-	
-	
 	$namedParameters1 = array();
 	$namedParameters1[':questionId'] = $_GET['questionId'];
 	$namedParameters1[':answerOne'] = $_GET['answerOne'];
 	$namedParameters1[':correct1'] = $answer1;
-	
+	$namedParameters[':letterA'] = 'A';
 	
 	$namedParameters2 = array();
 	$namedParameters2[':questionId'] = $_GET['questionId'];
 	$namedParameters2[':answerTwo'] = $_GET['answerTwo'];
 	$namedParameters2[':correct2'] = $answer2;
+    $namedParameters[':letterB'] = 'B';
 
-
-	
 	$namedParameters3 = array();
 	$namedParameters3[':questionId'] = $_GET['questionId'];
 	$namedParameters3[':answerThree'] = $_GET['answerThree'];
 	$namedParameters3[':correct3'] = $answer3;
-	
+	$namedParameters[':letterC'] = 'C';
 	
     
     $namedParameters4 = array();
 	$namedParameters4[':questionId'] = $_GET['questionId'];
 	$namedParameters4[':answerFour'] = $_GET['answerFour'];
 	$namedParameters4[':correct4'] = $answer4;
-
+    $namedParameters[':letterD'] = 'D';
 
     $statement = $dbConn->prepare($sql);
     $statement->execute($namedParameters);
@@ -256,6 +260,7 @@ function insertAnswers(){
 	$statement2 = $dbConn->prepare($sql2);
     $statement2->execute($namedParameters2);
 
+    
 	$statement3 = $dbConn->prepare($sql3);
     $statement3->execute($namedParameters3);
 	

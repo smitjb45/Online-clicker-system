@@ -86,13 +86,11 @@ integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7
 	   <div class="col-md-5">
 	       	<form method="post" action="loginProcess.php" class="form-horizontal">
 			    <div class="form-group">
-				   
 				   <label for="inputEmail3" class="col-sm-3 control-label">Username</label>
-    		          <div class="col-sm-9">
-				   <input type="text" class="form-control" placeholder="User Name" name="username" />
-				</div>
-		
-		</div>
+    		       <div class="col-sm-9">
+				      <input type="text" class="form-control" placeholder="User Name" name="username" />
+				   </div>
+		        </div>
 		 <div class="form-group">
             <label for="inputPassword3" class="col-sm-3 control-label">Password</label>
                <div class="col-sm-9">
@@ -107,8 +105,7 @@ integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7
                     <input type="button" class="btn btn-default btn-md btn-primary" onclick="signUp()" value="sign up!" />
                  </form>
               </div>
-		  
-    	 </div>
+    	   </div>
 		</form>	  
 	   </div>
 	   <div class="row">

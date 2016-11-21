@@ -194,6 +194,22 @@ integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7
   		
   		
   	}
+    
+        function validate(){
+           
+        //   alert(checkUsername());
+        //   alert(checkPassword());
+        //   alert(checkEmail());
+           
+           if(checkUsername() && checkPassword())
+           {
+           //    alert("valid");
+              return true;
+           } else {
+             //  alert("not valid");
+               return false;
+           }
+       }
   	
     $( document ).ready(function() {
       //console.log( "ready!" );
@@ -219,7 +235,7 @@ integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7
     	<?$theUserInfo = getUserInfo()?>
           <div id="login-wrapper">
       
-      <form class="form-horizontal">
+      <form class="form-horizontal" onsubmit="return validate()">
       <div class="row">
          <div class="col-sm-4 form-group">
 		    <p>First Name:</p> <input type="text" class="form-control" name="fName" value="<?=$theUserInfo['fName']?>" required/> <br />
@@ -244,7 +260,7 @@ integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7
       </div>  	
     </form>
     </div>
-          <?= theFooter(); ?>
+          <?= theFooter(true); ?>
 	  </div>
 </body>
 </html>

@@ -35,17 +35,17 @@ if(isset($_GET['lectureId'])){
 		echo "</td>";
 		echo "<td>";
 		echo "<a href='updateQuestion.php?questionId= {$record['questionId']}'>
-                <span class='glyphicon glyphicon-list-alt icon-padding'></span>
+                <span class='glyphicon glyphicon-list-alt icon-padding'><span class='icon-word-padding'>Update</span></span>
              </a>";
 		echo "</td>";
 		echo "<td>";
 		echo "<a target='_parent' href='./charts/classChart.php?questionId= {$record['questionId']}'>
-                 <span class='glyphicon glyphicon-stats icon-padding'></span>
+                 <span class='glyphicon glyphicon-stats icon-padding'><span class='icon-word-padding'>Stats</span></span>
               </a>";
 		echo "</td>";
 		echo "<td>";
 		echo "<a target='_parent' href='timer.php?questionId= {$record['questionId']}'>
-                 <span class='glyphicon glyphicon-eye-open icon-padding'></span>
+                 <span class='glyphicon glyphicon-eye-open icon-padding'>Show</span>
               </a>";
 		echo "</td>";
 	    echo "</tr>";
@@ -65,6 +65,7 @@ if(isset($_GET['lectureId'])){
                  $('[data-toggle="popover"]').popover({ html : true, container: 'body'})
               })
     </script>
+    <link href='https://fonts.googleapis.com/css?family=Shadows+Into+Light|Bangers|Bitter:400,700' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" type="text/css" href="../css/styles.css">
 </head>
 <body>
