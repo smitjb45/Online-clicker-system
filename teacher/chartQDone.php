@@ -1,13 +1,11 @@
 <?php
-    session_start();
+   session_start();
    include '../includes/database.inc.php'; 
    $dbConn = getDatabaseConnection();
    
-    function getChartData(){
+function getChartData(){
         
    global $dbConn; 
-	
-	
 	
     $sql = "SELECT studentAnswer, COUNT(studentAnswer) FROM studentAnswers 
             WHERE questionId = {$_SESSION["questionId"]}
@@ -17,6 +15,21 @@
 	$records = getDataBySQL($sql);
 	
     print_r($records);
+	
+    return $records;
+}
+
+function getChartCorrectAnswer(){
+        
+   global $dbConn; 
+	
+    $sql = "SELECT * FROM answers   
+            WHERE questionId = " . $_GET["questionId"] . " 
+            AND correct = 'Y'";
+        
+	$records = getDataBySQL($sql);
+	
+ //   print_r($records);
 	
     return $records;
 }
@@ -104,17 +117,18 @@ integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7
   <body>
   
     <div class="container">
-       <div class="col-sm-12 white-background">
-          <h1>The Correct Answer is</h1>
-          <br />
-	   </div>
+        <div class="row">
+          <div class="col-sm-4 margin-top">
+          </div>
+          <div class="col-sm-4 margin-top">
+             <span class="chart-answer">Correct Option: <?=getChartCorrectAnswer()[0]["letter"];?> </span>
+             <a href="#" title="Correct Answer:" data-toggle="popover" data-trigger="focus" data-content="<?=getChartCorrectAnswer()[0]["answer"];?>">Click me</a>
+	      </div>
+       </div>
      <div>
        <canvas id="myChart" class="white-background" width="200" height="100"></canvas>
        <input type="button" onclick="goTeacherLecture()" value="Done"/> 
-
-    </div>
-     
-		
+    </div>	
     </div>
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>

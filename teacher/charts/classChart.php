@@ -67,7 +67,10 @@ function getChartCorrectAnswer(){
     
     <!-- Bootstrap -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
-
+    <script>$(function () {
+                 $('[data-toggle="popover"]').popover({ html : true, container: 'body'})
+              })
+    </script>
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -139,17 +142,14 @@ integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7
           <div class="col-sm-4 margin-top">
           </div>
           <div class="col-sm-4 margin-top">
-             <span class="chart-answer">Correct Answer: <?=getChartCorrectAnswer()[0]["answer"];?> </span>
              <span class="chart-answer">Correct Option: <?=getChartCorrectAnswer()[0]["letter"];?> </span>
+             <a href="#" title="Correct Answer:" data-toggle="popover" data-trigger="focus" data-content="<?=getChartCorrectAnswer()[0]["answer"];?>">Click me</a>
 	      </div>
        </div>
      <div>
        <canvas id="myChart" class="white-background" width="200" height="100"></canvas>
     </div>	
     </div>
-    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-    <!-- Include all compiled plugins (below), or include individual files as needed -->
-    <script src="js/bootstrap.min.js"></script>
+
   </body>
 </html>
