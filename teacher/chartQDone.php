@@ -22,8 +22,8 @@ function getChartData(){
 function getChartCorrectAnswer(){
         
    global $dbConn; 
-	
-    $sql = "SELECT * FROM answers   
+   try{
+           $sql = "SELECT * FROM answers   
             WHERE questionId = " . $_GET["questionId"] . " 
             AND correct = 'Y'";
         
@@ -32,6 +32,11 @@ function getChartCorrectAnswer(){
  //   print_r($records);
 	
     return $records;
+   } catch(PDOException $e){
+       echo "No results";
+   }
+	
+
 }
 
 ?>

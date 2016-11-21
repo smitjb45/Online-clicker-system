@@ -39,7 +39,7 @@ function getAnswerInfo(){
 	$statement = $dbConn->prepare($sql);	
 	$statement->execute($namedParameters);
 	$record = $statement->fetch();
-	
+//	print_r($record);
 	return $record;
  }
 
@@ -49,14 +49,19 @@ if (isset($_GET['updateForm'])) {  //admin submitted the Update Form
 	$theUserInfo = getUserInfo();
 	$theAnswerInfo = getAnswerInfo();
 
-    if(empty($theAnswerInfo[0]['answer'])){
+    if(!isset($theAnswerInfo[0]['answer'])){
         insertAnswers();
     }
     else{
  
+ try{
+     
+     $dbConn->beginTransaction();
+     
 		$sql = "UPDATE questions
 		   	   SET question = :question,
-			   questionOrder = :questionOrder
+			   questionOrder = :questionOrder,
+               lectureId = :lectureId
 			   WHERE questionId = :questionId";
 			   
 			   $sql1 = "UPDATE answers
@@ -118,6 +123,7 @@ if (isset($_GET['updateForm'])) {  //admin submitted the Update Form
        $namedParameters = array();
        $namedParameters[':questionId'] = $_GET['questionId'];
        $namedParameters[':question'] = $_GET['question'];
+       $namedParameters[':lectureId'] = $_GET['lectureId'];
 	   $namedParameters[':questionOrder'] = $_GET['questionOrder'];
 	
 	   $namedParameters1 = array();
@@ -162,34 +168,44 @@ if (isset($_GET['updateForm'])) {  //admin submitted the Update Form
 	
 	   $statement4 = $dbConn->prepare($sql4);
        $statement4->execute($namedParameters4);
-
+       echo "YES";
+       $dbConn->commit();
    	   die;
+       
+ }catch(PDOException $e){
+     $dbConn->rollback();
+     echo $e;
+ }
     }
 }
 
 function insertAnswers(){
 	
+    try{
 	global $dbConn;
 		global $flagRecords;
 	$theUserInfo = getUserInfo();
+    
+    $dbConn->beginTransaction();
 	
 		$sql = "UPDATE questions
 		   	   SET 
 			   question = :question,
-			   questionOrder = :questionOrder
+			   questionOrder = :questionOrder,
+               lectureId = :lectureId
 			   WHERE questionId = :questionId";
 
 			
-			    $sql1 = "INSERT INTO answers(questionId, answer, correct, letterA)
+			    $sql1 = "INSERT INTO answers(questionId, answer, correct, letter)
     		   VALUES(:questionId, :answerOne, :correct1, :letterA);";
 			
-			    $sql2 = "INSERT INTO answers(questionId, answer, correct, letterB)
+			    $sql2 = "INSERT INTO answers(questionId, answer, correct, letter)
     		   VALUES(:questionId, :answerTwo, :correct2, :letterB);";
 			
-			    $sql3 = "INSERT INTO answers(questionId, answer, correct, letterC)
+			    $sql3 = "INSERT INTO answers(questionId, answer, correct, letter)
     		   VALUES(:questionId, :answerThree, :correct3, :letterC);";
 			
-			    $sql4 = "INSERT INTO answers(questionId, answer, correct, letterD)
+			    $sql4 = "INSERT INTO answers(questionId, answer, correct, letter)
     		   VALUES(:questionId, :answerFour, :correct4, :letterD);";
 	
 			   
@@ -221,35 +237,37 @@ function insertAnswers(){
 		throw new Exception('Error, select a correct answer');
 	}
 	
+  
     $namedParameters = array();
     $namedParameters[':questionId'] = $_GET['questionId'];
     $namedParameters[':question'] = $_GET['question'];
+    $namedParameters[':lectureId'] = $_GET['lectureId'];
 	$namedParameters[':questionOrder'] = $_GET['questionOrder'];
 	
 	$namedParameters1 = array();
 	$namedParameters1[':questionId'] = $_GET['questionId'];
 	$namedParameters1[':answerOne'] = $_GET['answerOne'];
 	$namedParameters1[':correct1'] = $answer1;
-	$namedParameters[':letterA'] = 'A';
+	$namedParameters1[':letterA'] = 'A';
 	
 	$namedParameters2 = array();
 	$namedParameters2[':questionId'] = $_GET['questionId'];
 	$namedParameters2[':answerTwo'] = $_GET['answerTwo'];
 	$namedParameters2[':correct2'] = $answer2;
-    $namedParameters[':letterB'] = 'B';
+    $namedParameters2[':letterB'] = 'B';
 
 	$namedParameters3 = array();
 	$namedParameters3[':questionId'] = $_GET['questionId'];
 	$namedParameters3[':answerThree'] = $_GET['answerThree'];
 	$namedParameters3[':correct3'] = $answer3;
-	$namedParameters[':letterC'] = 'C';
+	$namedParameters3[':letterC'] = 'C';
 	
     
     $namedParameters4 = array();
 	$namedParameters4[':questionId'] = $_GET['questionId'];
 	$namedParameters4[':answerFour'] = $_GET['answerFour'];
 	$namedParameters4[':correct4'] = $answer4;
-    $namedParameters[':letterD'] = 'D';
+    $namedParameters4[':letterD'] = 'D';
 
     $statement = $dbConn->prepare($sql);
     $statement->execute($namedParameters);
@@ -264,10 +282,16 @@ function insertAnswers(){
 	$statement3 = $dbConn->prepare($sql3);
     $statement3->execute($namedParameters3);
 	
-		$statement4 = $dbConn->prepare($sql4);
+	$statement4 = $dbConn->prepare($sql4);
     $statement4->execute($namedParameters4);
     
+    $dbConn->commit();
+    
     die;
+    }catch(PDOException $e){
+        $dbConn->rollback();
+        echo $e;
+    }
 }
 
 ?>
