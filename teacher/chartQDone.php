@@ -1,6 +1,8 @@
+
 <?php
    session_start();
    include '../includes/database.inc.php'; 
+   include '../functions_utills.php';
    $dbConn = getDatabaseConnection();
    
 function getChartData(){
@@ -8,13 +10,13 @@ function getChartData(){
    global $dbConn; 
 	
     $sql = "SELECT studentAnswer, COUNT(studentAnswer) FROM studentAnswers 
-            WHERE questionId = {$_SESSION["questionId"]}
-            AND showQuestionId = {$_SESSION["showQuestionId"]}
+            WHERE questionId = {$_SESSION['questionId']}
+            AND showQuestionId = {$_SESSION['showQuestionId']}
             GROUP BY studentAnswer";
         
 	$records = getDataBySQL($sql);
 	
-    print_r($records);
+  //  print_r($records);
 	
     return $records;
 }
@@ -22,14 +24,14 @@ function getChartData(){
 function getChartCorrectAnswer(){
         
    global $dbConn; 
-   try{
+  try{
            $sql = "SELECT * FROM answers   
-            WHERE questionId = " . $_GET["questionId"] . " 
+            WHERE questionId = " . $_SESSION["questionId"] . " 
             AND correct = 'Y'";
         
 	$records = getDataBySQL($sql);
 	
- //   print_r($records);
+    print_r($records);
 	
     return $records;
    } catch(PDOException $e){
@@ -77,13 +79,19 @@ integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7
 <link rel="stylesheet" type="text/css" href="../css/styles.css">
 
 <script src="../Chart.js-master/Chart.js"></script>
-<?php $records = getChartData();?>
-	<script>
-    
-    function goTeacherLecture(){
         
-        document.location.href = "./questions.php";
-    }
+        <script type="text/javascript" language="JavaScript">
+           function goTeacherLecture(){
+        
+              document.location.href = "./questions.php";
+           }
+        </script>
+<?php $records = getChartData();?>
+
+  
+    <script>
+    
+    
     
    //   alert("hi");
                   
@@ -112,12 +120,29 @@ integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7
 			responsive : true,
 		});
       
-    window.myBar.addData([dataArray[0]['COUNT(studentAnswer)']], [dataArray[0].studentAnswer]);
-    window.myBar.addData([dataArray[1]['COUNT(studentAnswer)']], [dataArray[1].studentAnswer]);
-    window.myBar.addData([dataArray[2]['COUNT(studentAnswer)']], [dataArray[2].studentAnswer]);
-    window.myBar.addData([dataArray[3]['COUNT(studentAnswer)']], [dataArray[3].studentAnswer]);
+      try {
+          window.myBar.addData([dataArray[0]['COUNT(studentAnswer)']], [dataArray[0].studentAnswer]);
+      }catch(err) {
+          window.myBar.addData([0], ["A"]);
+      }
+      try {
+          window.myBar.addData([dataArray[1]['COUNT(studentAnswer)']], [dataArray[1].studentAnswer]);
+      }catch(err) {
+          window.myBar.addData([0], ["B"]);
+      }
+      try {
+          window.myBar.addData([dataArray[2]['COUNT(studentAnswer)']], [dataArray[2].studentAnswer]);
+      }catch(err) {
+          window.myBar.addData([0], ["C"]);
+      }
+            try {
+          window.myBar.addData([dataArray[3]['COUNT(studentAnswer)']], [dataArray[3].studentAnswer]);
+      }catch(err) {
+          window.myBar.addData([0], ["D"]);
+      }
 	}
 	</script>
+  
   </head>
   <body>
   
@@ -132,17 +157,11 @@ integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7
        </div>
      <div>
        <canvas id="myChart" class="white-background" width="200" height="100"></canvas>
-       <input type="button" onclick="goTeacherLecture()" value="Done"/> 
+       <input type="button" class="btn btn-default btn-md btn-primary" onclick="goTeacherLecture()" value="Done"/> 
     </div>	
     </div>
-    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-    <!-- Include all compiled plugins (below), or include individual files as needed -->
-    <script src="js/bootstrap.min.js"></script>
   </body>
-       <footer id="footer">
-	      <hr />
-	      <p> the information included on this page may not be correct &copy; SpoutTech 2015</p>
-		  <img src="../img/logoSproutBottom.png" alt="Sprout logo" />
-	   </footer>
+    <div class="row">
+       <?=theFooter(false)?>
+    </div>
 </html>

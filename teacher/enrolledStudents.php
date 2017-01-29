@@ -11,111 +11,46 @@ if (!isset($_SESSION['username'])) {  //checks whether user has logged in
 	
 }
 
-
-function displayClasses(){
+function displayStudents(){
 	
 	global $dbConn;
 	
-$sql = "SELECT * FROM classes 
-        LEFT JOIN user ON classes.teacherId = user.userId		
-		WHERE classes.teacherId = {$_SESSION['userId']}";
+$sql = "SELECT * FROM enrolledStudents 
+        LEFT JOIN user ON enrolledStudents.studentId = user.userId		
+		WHERE enrolledStudents.classId = {$_GET['classId']}";
 
 	$records = getDataBySQL($sql);
 	
 	
-	//print_r($records);
+	print_r($records);
 	
 	
 	echo "<table class='table-bordered'>";
 	foreach ($records as $record) {
 		echo "<tr>";
 		echo "<td>";
-		echo "<h5 class='word-padding'>Class Name:</h5>";
+		echo "<h5 class='word-padding'>Student Name:</h5>";
 		echo "<td/>";
 		echo "<td>";
-	    echo "<h5 class='word-padding'>{$record['className']}</h5>"; 
+	    echo "<h5 class='word-padding'>{$record['fName']} {$record['lName']}</h5>";        
+		echo "<td/>";
+        echo "<td>";
+		echo "<h5 class='word-padding'>Student Email:</h5>";
 		echo "<td/>";
 		echo "<td>";
-		echo "<h5 class='word-padding'>School:</h5>";
-		echo "<td>";
-		echo "<h5 class='word-padding'>{$record['schoolName']}</h5>";
-		echo "<td/>";
-		echo "<td>";
-		echo "<a href='questions.php?classId= {$record['classId']}'>
-                 <span class='glyphicon glyphicon-folder-open icon-padding'><span class='icon-word-padding'>Lecture</span></span></a>";
-		echo "<td/>";
-		echo "<td>";
-		echo "<a href='updateClassInfo.php?classId= {$record['classId']}'>
-                 <span class='glyphicon glyphicon-list-alt icon-padding'><span class='icon-word-padding'>Update</span></span>
-             </a>";
-		echo "<td/>";
-		echo "<td>";
-		echo "<a href='enrolledStudents.php?classId= {$record['classId']}'>
-                 <span class='glyphicon glyphicon-user icon-padding'><span class='icon-word-padding'>Students</span></span>
-              </a>";
+	    echo "<h5 class='word-padding'>{$record['email']}</h5>";        
 		echo "<td/>";
 		echo "<td>";
 		echo "<a href='deleteClass.php?classId= {$record['classId']}'>
-                 <span class='glyphicon glyphicon-trash icon-padding'><span class='icon-word-padding'>End</span></span>
+                 <span class='glyphicon glyphicon-trash icon-padding'><span class='icon-word-padding'>Drop</span></span>
               </a>";
 		echo "</td>";
 	    echo "</tr>";
 	}
 	echo "</table>";
 	
-}
-
-function displayClassesEnded(){
-	
-	global $dbConn;
-	
-// $sql = "SELECT * FROM user LEFT JOIN endedClasses ON user.userId = endedClasses.teacherId WHERE user.userType = "teacher"";
-$sql = "SELECT * FROM endedClasses 
-        LEFT JOIN user ON endedClasses.teacherId = user.userId		
-		WHERE endedClasses.teacherId = {$_SESSION['userId']}";
-
-	$records = getDataBySQL($sql);
-	
-	
-	//print_r($records);
-	
-	
-	echo "<table class='table-bordered'>";
-	foreach ($records as $record) {
-		echo "<tr>";
-		echo "<td>";
-		echo "<h5 class='word-padding'>Class Name:</h5>";
-		echo "<td/>";
-		echo "<td>";
-		echo "<h5 class='word-padding'>{$record['className']}</h5> "; 
-		echo "<td/>";
-		echo "<td>";
-		echo "<h5 class='word-padding'>School:</h5>";
-		echo "<td>";
-		echo "<h5 class='word-padding'>{$record['schoolName']}</h5>";
-		echo "<td/>";
-		echo "<td>";
-		echo "<a href='questions.php?classId= {$record['classId']}'>
-                 <span class='glyphicon glyphicon-folder-open icon-padding'><span class='icon-word-padding'>Lectures</span></span>
-              </a>";
-		echo "<td/>";
-		echo "<td>";
-		echo "<a href='enrolledStudents.php?classId= {$record['classId']}'>
-                 <span class='glyphicon glyphicon-stats icon-padding icon-padding'><span class='icon-word-padding'>Stats</span></span>
-              </a>";
-		echo "<td/>";
-		echo "<td>";
-		echo "<a href='restart.php?classId= {$record['classId']}'>
-                 <span class='glyphicon glyphicon-retweet icon-padding'><span class='icon-word-padding'>Restart</span></span>
-              </a>";
-		echo "</td>";
-	    echo "</tr>";
-	}
-	echo "</table>";
 }
 ?>
-
-
 
 <!DOCTYPE html>
 <html lang="en">
@@ -198,14 +133,14 @@ integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7
 	<hr />
 	<div class="row">
 	   <div class="col-md-6">
-	      <?= displayClasses()?>
+	      <?= displayStudents()?>
 	   </div>
        
        <div class="col-md-1">
 	   </div>
 	   
        <div class="col-md-5">
-	      <?=displayClassesEnded()?>
+	      
 	   </div>
     </div>
 <?=theFooter(false)?>

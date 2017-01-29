@@ -1,6 +1,7 @@
 <?php
 session_start();
 include '../includes/database.inc.php';
+include '../functions_utills.php';
 
 $dbConn = getDatabaseConnection(); //gets database connection
 
@@ -11,7 +12,6 @@ if (!isset($_SESSION['username'])) {  //checks whether user has logged in
     exit;
 	
 }
-
 
  function deleteShowQuestion(){
 	 
@@ -53,18 +53,12 @@ $sql = "SELECT * FROM showQuestion
 		WHERE questionId = {$_GET['questionId']}";
 
 	$records = getDataBySQL($sql);
-    
-    if(!isset($records)){
-       return true;    
-    }else{
-        return false;
-    }
+
+    return $records;
     
 }
-
-
 //print_r($_SESSION);
-if (true) {  //admin submitted the Update Form
+if (questionCheck() == null) {  //admin submitted the Update Form
 	
 	$sql = "INSERT INTO showQuestion(questionId, classId)
     		VALUES(:questionId, :classId);";
@@ -83,8 +77,8 @@ if (isset($_GET['goTOStats'])) {  //admin submitted the Update Form
     
     //print_r($records);
     print_r($records[0]['showQuestionId']);
-    $_SESSION["questionId"] = $_GET['questionId'];
-    $_SESSION["showQuestionId"] = $records[0]['showQuestionId'];
+    $_SESSION['questionId'] = $_GET['questionId'];
+    $_SESSION['showQuestionId'] = $records[0]['showQuestionId'];
     
     print_r($_GET['showQuestionId']);
     deleteShowQuestion();
@@ -137,7 +131,7 @@ integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" 
 integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
 
-<link rel="stylesheet" type="text/css" href="../css/styles.css">
+<link rel="stylesheet" type="text/css" href="../css/timerStyles.css">
 
     <script>
        var deadline = new Date();
@@ -189,16 +183,28 @@ integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7
 
 <body>
 	<div class="row">
-	   <div class="col-md-4">
+	   <div class="col-md-12">
+       <h1>Countdown Clock</h1>
+<div id="clockdiv">
+  <div>
+    <span class="days"></span>
+    <div class="smalltext">Days</div>
+  </div>
+  <div>
+    <span class="hours"></span>
+    <div class="smalltext">Hours</div>
+  </div>
+  <div>
+    <span class="minutes"></span>
+    <div class="smalltext">Minutes</div>
+  </div>
+  <div>
+    <span class="seconds"></span>
+    <div class="smalltext">Seconds</div>
+  </div>
+</div>
 	   </div>
-       <div id="clockdiv" class="col-md-4">
-          Days: <span class="days"></span><br>
-          Hours: <span class="hours"></span><br>
-          Minutes: <span class="minutes"></span><br>
-          Seconds: <span class="seconds"></span>
-      </div>
-	   <div class="col-md-4">
-	   </div>
+
     </div>
     <form>
             <?php $records = getQuestionInfo(); ?>
@@ -207,10 +213,8 @@ integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7
        <input type="submit" name="goTOStats" class="btn btn-default btn-md btn-primary" value="finish">
     </form>
   </div>
-      <footer id="footer">
-			<hr />
-			<p> the information included on this page may not be correct, it was created in CST336 &copy; Joshua Smith 2015</p>
-			<img class="image-with border" src="../../img/csumb-logo.png" alt="csumb logo" />
-		</footer>
+    <div class="row">
+       <?=theFooter(false)?>
+    </div>
 </body>
 </html>

@@ -4,7 +4,7 @@
    $dbConn = getDatabaseConnection();
    
 
-   function getChartData(){
+function getChartData(){
         
    global $dbConn; 
 	
@@ -94,7 +94,12 @@ integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7
 
 <script src="../../Chart.js-master/Chart.js"></script>
 <?php $records = getChartData();?>
-	
+        <script type="text/javascript" language="JavaScript">
+           function goTeacherLecture(){
+        
+              document.location.href = "../questions.php";
+           }
+        </script>	
 
     
     <script>
@@ -128,10 +133,26 @@ integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7
 			responsive : true,
 		});
       
-    window.myBar.addData([dataArray[0]['COUNT(studentAnswer)']], [dataArray[0].studentAnswer]);
-    window.myBar.addData([dataArray[1]['COUNT(studentAnswer)']], [dataArray[1].studentAnswer]);
-    window.myBar.addData([dataArray[2]['COUNT(studentAnswer)']], [dataArray[2].studentAnswer]);
-    window.myBar.addData([dataArray[3]['COUNT(studentAnswer)']], [dataArray[3].studentAnswer]);
+      try {
+          window.myBar.addData([dataArray[0]['COUNT(studentAnswer)']], [dataArray[0].studentAnswer]);
+      }catch(err) {
+          window.myBar.addData([0], ["A"]);
+      }
+      try {
+          window.myBar.addData([dataArray[1]['COUNT(studentAnswer)']], [dataArray[1].studentAnswer]);
+      }catch(err) {
+          window.myBar.addData([0], ["B"]);
+      }
+      try {
+          window.myBar.addData([dataArray[2]['COUNT(studentAnswer)']], [dataArray[2].studentAnswer]);
+      }catch(err) {
+          window.myBar.addData([0], ["C"]);
+      }
+            try {
+          window.myBar.addData([dataArray[3]['COUNT(studentAnswer)']], [dataArray[3].studentAnswer]);
+      }catch(err) {
+          window.myBar.addData([0], ["D"]);
+      }
 	}
 	</script>
   </head>
@@ -148,6 +169,7 @@ integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7
        </div>
      <div>
        <canvas id="myChart" class="white-background" width="200" height="100"></canvas>
+       <input type="button" class="btn btn-default btn-md btn-primary" onclick="goTeacherLecture()" value="Done"/> 
     </div>	
     </div>
 

@@ -62,11 +62,11 @@ $sql = "SELECT studentId FROM studentAnswers where questionId = {$question_id} A
     return($records);
 }
 
-//    if(isset($theRecords[0]['questionId'])){
-//       if(!empty(checkIfAnswered($theRecords[0]['questionId']))){
-//          header('Location: ./studentHome.php');
-//       }    
-//    }
+    if(isset($theRecords[0]['questionId'])){
+       if(!empty(checkIfAnswered($theRecords[0]['questionId']))){
+          header('Location: ./studentHome.php');
+       }    
+    }
 ?>
 
 
@@ -170,7 +170,7 @@ integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7
         <div class="row">
             <div class="col-sm-offset-2 col-sm-8">
                 <label for="input1">
-                    <input type="radio" id="input1" name="answer" value="A<?=$theRecords[0]['correct']?>" /><span id="answerOne" class="word-padding"></span>
+                    <input type="radio" id="input1" name="answer" value="A<?=$theRecords[0]['correct']?>" required /><span id="answerOne" class="word-padding"></span>
                 </label>
             </div>
             <div class="col-sm-2">
@@ -206,7 +206,7 @@ integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7
 	   <input type="hidden" name="questionId" value="<?=$theRecords[0]['questionId']?>" />
 	   <input type="hidden" name="lectureId" value="<?=$theRecords[0]['lectureId']?>" />
 	   <input type="hidden" id="classId" name="classId" value="<?=$theRecords[0]['classId']?>" />
-	   
+	   <input type="hidden" name="showQuestionId" value="<?=$theRecords[0]['showQuestionId']?>" />
        <div class="row">
            <div class="col-sm-offset-2 col-sm-8">
                 <br />
