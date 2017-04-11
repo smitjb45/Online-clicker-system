@@ -51,22 +51,30 @@ $sql = "SELECT * FROM showQuestion
 
 $theRecords = displayQA();
 
-function checkIfAnswered($question_id){
+function checkIfAnswered($showQuestionId){
 
-	global $dbConn;
-	
-$sql = "SELECT studentId FROM studentAnswers where questionId = {$question_id} AND studentId = {$_SESSION['userId']}";
-
-	$records = getDataBySQL($sql);
-
-    return($records);
+	try{
+		global $dbConn;
+			
+		$sql = "SELECT showQuestionId FROM studentAnswers where showQuestionId = {$showQuestionId} AND studentId = {$_SESSION['userId']}";
+		
+		$records = getDataBySQL($sql);
+		
+		return($records);
+	}catch(PDOException $e){
+	// 	no data
+	}
 }
 
-    if(isset($theRecords[0]['questionId'])){
-       if(!empty(checkIfAnswered($theRecords[0]['questionId']))){
-          header('Location: ./studentHome.php');
-       }    
-    }
+$studentAnswered = checkIfAnswered($theRecords[0]['showQuestionId']);
+
+if(isset($studentAnswered)){
+	print_r($studentAnswered);
+	// echo "here-------------->" . $studentAnswered;
+   if(!empty($studentAnswereds[0]['showQuestionId'])){
+       header('Location: ./studentHome.php');
+   }    
+}
 ?>
 
 
@@ -122,6 +130,7 @@ integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7
             type: "get",
             url: "studentGetQuestion.php",
             dataType: "json",
+            async: true,
             data: {"classId" : $("#classId").val()},
             success: function(data,status) {
                  

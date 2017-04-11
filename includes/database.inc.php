@@ -4,7 +4,7 @@ function getDatabaseConnection() {
 	$host = "localhost";
 	$dbname = "smit9960";	//your otterid
 	$username = "root"; 	//your otterid
-	$password = "mysql";
+	$password = "password";
 
     try {
 	   //creates connection to database
